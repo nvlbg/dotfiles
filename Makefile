@@ -1,6 +1,9 @@
-LINUX := alacritty i3 tmux vim X zsh
+LINUX := alacritty i3 tmux vim x zsh
 
-install-linux: $(LINUX:%=install-%)
+default:
+	$(error Use `make linux`)
+
+linux: $(LINUX:%=install-%)
 
 install-alacritty:
 	mkdir -p ~/.config
@@ -22,7 +25,7 @@ install-vim:
 	rm -rf ~/.config/nvim
 	ln -fs $(PWD)/vim ~/.config/nvim
 
-install-X:
+install-x:
 	ln -fs $(PWD)/x11/Xinitrc ~/.Xinitrc
 	ln -fs $(PWD)/x11/Xmodmap ~/.Xmodmap
 
