@@ -1,4 +1,4 @@
-LINUX := alacritty i3 tmux X zsh
+LINUX := alacritty i3 tmux vim X zsh
 
 install-linux: $(LINUX:%=install-%)
 
@@ -16,6 +16,11 @@ install-i3:
 
 install-tmux:
 	ln -fs $(PWD)/tmux/tmux.conf ~/.tmux.conf
+
+install-vim:
+	mkdir -p ~/.config
+	rm -rf ~/.config/nvim
+	ln -fs $(PWD)/vim ~/.config/nvim
 
 install-X:
 	ln -fs $(PWD)/x11/Xinitrc ~/.Xinitrc
