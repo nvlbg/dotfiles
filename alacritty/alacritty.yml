@@ -30,10 +30,10 @@ padding:
 # The FreeType rasterizer needs to know the device DPI for best results
 # (changes require restart)
 dpi:
-  x: 96.0
-  y: 96.0
-  #   x: 109.0
-  #   y: 109.0
+    x: 96.0
+    y: 96.0
+    # x: 209.0
+    # y: 209.0
 
 # Display tabs using this many cells (changes require restart)
 tabspaces: 8

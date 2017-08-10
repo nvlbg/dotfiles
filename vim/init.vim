@@ -80,6 +80,7 @@ set ruler
 " display incomplete commands in low right corner
 set showcmd
 
+set hidden
 
 set smartcase
 " display matches while typying
@@ -102,16 +103,12 @@ nnoremap <leader><space> :noh<cr>
 nnoremap j gj
 nnoremap k gk
 
+" easier window management
+nnoremap <leader>s :split<cr>
 nnoremap <leader>v :vsplit<cr>
-nnoremap <leader>b :split<cr>
-
-noremap <up> <nop>
-noremap <down> <nop>
-noremap <left> <nop>
-noremap <right> <nop>
-
-" use esc to enter normal mode in terminal
-tnoremap <Esc> <C-\><C-n>
+nnoremap <leader>q :quit<cr>
+nnoremap <leader>t :tabnew<cr>
+nnoremap <leader>x :tabclose<cr>
 
 " easier switching between splits
 nnoremap <C-h> <C-w>h
@@ -119,8 +116,17 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
-nnoremap <leader>t :tabnew<cr>
-nnoremap <leader>x :tabclose<cr>
+" go to alternate buffer
+nnoremap <C-space> <C-^>
+
+" disable arrow keys
+noremap <up> <nop>
+noremap <down> <nop>
+noremap <left> <nop>
+noremap <right> <nop>
+
+" use esc to enter normal mode in terminal
+tnoremap <Esc> <C-\><C-n>
 
 map <C-p> :FZF<cr>
 
