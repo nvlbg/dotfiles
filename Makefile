@@ -1,9 +1,11 @@
 LINUX := alacritty i3 tmux vim x zsh
+OSX := alacritty karabiner tmux vim zsh
 
 default:
-	$(error Use `make linux`)
+	$(error Use `make linux` or `make osx`)
 
 linux: $(LINUX:%=install-%)
+osx: $(OSX:%=install-%)
 
 install-alacritty:
 	mkdir -p ~/.config
@@ -16,6 +18,11 @@ install-i3:
 	rm -rf ~/.config/i3status
 	ln -fs $(PWD)/i3 ~/.config/i3
 	ln -fs $(PWD)/i3status ~/.config/i3status
+
+install-karabiner:
+	mkdir -p ~/.config
+	rm -rf ~/.config/karabiner
+	ln -fs $(PWD)/karabiner ~/.config/karabiner
 
 install-tmux:
 	ln -fs $(PWD)/tmux/tmux.conf ~/.tmux.conf
