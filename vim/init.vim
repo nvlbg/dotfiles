@@ -98,7 +98,6 @@ set showtabline=2
 
 let mapleader=","
 
-nnoremap <F5> :so $MYVIMRC<cr>
 nnoremap <leader><space> :noh<cr>
 
 " switch moving on real and display lines
@@ -180,4 +179,8 @@ set grepprg=rg\ --vimgrep
 
 " makes cursor to appear as a | in insert mode
 set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor
+
+if has("autocmd")
+    autocmd BufWritePost init.vim source $MYVIMRC
+endif
 
