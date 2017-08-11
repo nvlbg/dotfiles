@@ -140,7 +140,7 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
 " go to alternate buffer
-nnoremap <C-space> <C-^>
+nnoremap <space><space> <C-^>
 
 " disable arrow keys
 noremap <up> <nop>
