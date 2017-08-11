@@ -100,8 +100,31 @@ let mapleader=","
 
 nnoremap <F5> :so $MYVIMRC<cr>
 nnoremap <leader><space> :noh<cr>
+
+" switch moving on real and display lines
 nnoremap j gj
 nnoremap k gk
+nnoremap 0 g0
+nnoremap ^ g^
+nnoremap $ g$
+
+vnoremap j gj
+vnoremap k gk
+vnoremap 0 g0
+vnoremap ^ g^
+vnoremap $ g$
+
+nnoremap gj j
+nnoremap gk k
+nnoremap g0 0
+nnoremap g^ ^
+nnoremap g$ $
+
+vnoremap gj j
+vnoremap gk k
+vnoremap g0 0
+vnoremap g^ ^
+vnoremap g$ $
 
 " easier window management
 nnoremap <leader>s :split<cr>
