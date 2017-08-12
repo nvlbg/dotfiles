@@ -10,7 +10,7 @@ call plug#begin('~/.local/share/nvim/plugged')
  Plug 'rust-lang/rust.vim'
  Plug 'elixir-lang/vim-elixir'
  Plug 'altercation/vim-colors-solarized'
- Plug 'vim-scripts/matchit.zip'
+" Plug 'vim-scripts/matchit.zip'
  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
  Plug 'junegunn/fzf.vim'
  Plug 'janko-m/vim-test'
@@ -19,6 +19,7 @@ call plug#begin('~/.local/share/nvim/plugged')
  Plug 'jiangmiao/auto-pairs'
  Plug 'tpope/vim-fugitive'
  Plug 'tpope/vim-commentary'
+ Plug 'tpope/vim-surround'
  Plug 'w0rp/ale'
 
 call plug#end()
@@ -28,6 +29,9 @@ set nocompatible
 
 " start filetype detection (with indentation and plugin support)
 filetype plugin indent on
+
+" enable matchit pligin
+runtime macros/matchit.vim
 
 syntax enable
 colorscheme solarized
@@ -96,7 +100,9 @@ set so=6
 " always show tab line
 set showtabline=2
 
+" switch , and \
 let mapleader=","
+noremap \ ,
 
 nnoremap <leader><space> :noh<cr>
 
@@ -140,12 +146,6 @@ nnoremap <C-l> <C-w>l
 
 " go to alternate buffer
 nnoremap <space><space> <C-^>
-
-" disable arrow keys
-noremap <up> <nop>
-noremap <down> <nop>
-noremap <left> <nop>
-noremap <right> <nop>
 
 " use esc to enter normal mode in terminal
 tnoremap <Esc> <C-\><C-n>
