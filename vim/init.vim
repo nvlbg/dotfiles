@@ -147,6 +147,13 @@ noremap <down> <nop>
 noremap <left> <nop>
 noremap <right> <nop>
 
+" filter commands when recalling
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
+
+" show available completions
+cnoremap <C-space> <C-d>
+
 " use esc to enter normal mode in terminal
 tnoremap <Esc> <C-\><C-n>
 
