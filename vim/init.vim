@@ -147,6 +147,13 @@ nnoremap <C-l> <C-w>l
 " go to alternate buffer
 nnoremap <space><space> <C-^>
 
+" filter commands when recalling
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
+
+" show available completions
+cnoremap <C-space> <C-d>
+
 " use esc to enter normal mode in terminal
 tnoremap <Esc> <C-\><C-n>
 
