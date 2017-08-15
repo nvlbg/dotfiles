@@ -2,23 +2,23 @@ call plug#begin('~/.local/share/nvim/plugged')
 
  Plug 'scrooloose/nerdtree'
  Plug 'tpope/vim-unimpaired'
-" Plug 'bling/vim-airline'
  Plug 'vim-airline/vim-airline'
  Plug 'vim-airline/vim-airline-themes'
  Plug 'airblade/vim-gitgutter'
-" Plug 'valloric/youcompleteme'
  Plug 'rust-lang/rust.vim'
  Plug 'elixir-lang/vim-elixir'
+ Plug 'pangloss/vim-javascript'
+ Plug 'mxw/vim-jsx'
+ Plug 'solarnz/thrift.vim'
  Plug 'altercation/vim-colors-solarized'
-" Plug 'vim-scripts/matchit.zip'
  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
  Plug 'junegunn/fzf.vim'
  Plug 'janko-m/vim-test'
  Plug 'tpope/vim-dispatch'
- Plug 'pangloss/vim-javascript'
  Plug 'jiangmiao/auto-pairs'
  Plug 'tpope/vim-fugitive'
  Plug 'tpope/vim-commentary'
+ Plug 'tpope/vim-repeat'
  Plug 'tpope/vim-surround'
  Plug 'w0rp/ale'
 
@@ -103,8 +103,9 @@ set showtabline=2
 " switch , and \
 let mapleader=","
 noremap \ ,
+nnoremap <leader>, ,
 
-nnoremap <leader><space> :noh<cr>
+nnoremap <leader><space> :nohlsearch<cr>
 
 " switch moving on real and display lines
 nnoremap j gj
@@ -170,6 +171,8 @@ endfunction
 
 autocmd BufEnter * call NERDTreeRefresh()
 
+let NERDTreeHijackNetrw=1
+
 " --column: Show column number
 " --line-number: Show line number
 " --no-heading: Do not show file headings in results
@@ -187,7 +190,10 @@ set grepprg=rg\ --vimgrep
 " makes cursor to appear as a | in insert mode
 set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor
 
-if has("autocmd")
-    autocmd BufWritePost init.vim source $MYVIMRC
-endif
+" if has("autocmd")
+"     autocmd BufWritePost init.vim source $MYVIMRC
+" endif
+
+" don't restrict jsx plugin to only .jsx files
+let g:jsx_ext_required = 0
 
