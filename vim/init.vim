@@ -21,6 +21,7 @@ call plug#begin('~/.local/share/nvim/plugged')
  Plug 'tpope/vim-repeat'
  Plug 'tpope/vim-surround'
  Plug 'w0rp/ale'
+ Plug 'thinca/vim-visualstar'
 
 call plug#end()
 
