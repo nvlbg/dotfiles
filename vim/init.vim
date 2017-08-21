@@ -137,7 +137,7 @@ vnoremap g$ $
 nnoremap <leader>s :split<cr>
 nnoremap <leader>v :vsplit<cr>
 nnoremap <leader>q :quit<cr>
-nnoremap <leader>t :tabnew<cr>
+nnoremap <leader>n :tabnew<cr>
 nnoremap <leader>x :tabclose<cr>
 
 " easier switching between splits
@@ -197,4 +197,21 @@ set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr
 
 " don't restrict jsx plugin to only .jsx files
 let g:jsx_ext_required = 0
+
+" custom test preferences
+let test#strategy = "neovim"
+function! BedrockTransform(cmd) abort
+  let l:first_transform = substitute(a:cmd, "\\\"test/\\\*\\\*/\\\*\\\.js\\\"", "dist-test/test/*/index.js", "")
+  let l:second_transform = substitute(l:first_transform, "src/", "dist-test/", "")
+  return 'NODE_ENV=test '.l:second_transform.' | ./node_modules/.bin/tap-spec'
+endfunction
+
+let g:test#custom_transformations = {'bedrock': function('BedrockTransform')}
+let g:test#transformation = 'bedrock'
+
+nmap <silent> <leader>t :TestNearest<CR>
+nmap <silent> <leader>T :TestFile<CR>
+nmap <silent> <leader>a :TestSuite<CR>
+nmap <silent> <leader>l :TestLast<CR>
+nmap <silent> <leader>g :TestVisit<CR>
 
