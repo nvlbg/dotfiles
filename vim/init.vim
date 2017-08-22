@@ -201,8 +201,8 @@ let g:jsx_ext_required = 0
 " custom test preferences
 let test#strategy = "neovim"
 function! BedrockTransform(cmd) abort
-  let l:first_transform = substitute(a:cmd, "\\\"test/\\\*\\\*/\\\*\\\.js\\\"", "dist-test/test/*/index.js", "")
-  let l:second_transform = substitute(l:first_transform, "src/", "dist-test/", "")
+  let l:first_transform = substitute(a:cmd, '"test/\*\*/\*\.js"', 'dist-test/test/*/index.js', '')
+  let l:second_transform = substitute(l:first_transform, 'src/', 'dist-test/', '')
   return 'NODE_ENV=test '.l:second_transform.' | ./node_modules/.bin/tap-spec'
 endfunction
 
