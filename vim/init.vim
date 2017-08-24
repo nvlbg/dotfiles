@@ -38,17 +38,11 @@ syntax enable
 colorscheme solarized
 set background=dark
 let g:airline_theme='dark'
-" number lines
-set number
 
-" tabs appear as 4 chars
-set tabstop=4
-" insert 4 spaces for tabs
-set softtabstop=4
-" insert 4 spaces when shifting
-set shiftwidth=4
-" convert tabs to spaces
-set expandtab
+set tabstop=4     " tabs appear as 4 chars
+set softtabstop=4 " insert 4 spaces for tabs
+set shiftwidth=4  " insert 4 spaces when shifting
+set expandtab     " convert tabs to spaces
 
 " Set tabstop, softtabstop and shiftwidth to the same value
 command! -nargs=* Stab call Stab()
@@ -78,22 +72,18 @@ function! SummarizeTabs()
   endtry
 endfunction
 
-" indent new lines based on previous ones
-set autoindent
-" always display cursor position in low right corner
-set ruler
-" display incomplete commands in low right corner
-set showcmd
+set number     " show line numbers
+set autoindent " indent new lines based on previous ones
+set ruler      " always display cursor position in low right corner
+set showcmd    " display incomplete commands in low right corner
+set cursorline " highlight current line
 
 set hidden
 
 set smartcase
-" display matches while typying
-set incsearch
-" highlight matches
-set hlsearch
-set showmatch
-set gdefault
+set incsearch " display matches while typying
+set hlsearch  " highlight matches
+set showmatch " highlight matching parentheses
 
 " scroll before cursor hits bottom line
 set so=6
