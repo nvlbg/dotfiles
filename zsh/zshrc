@@ -51,7 +51,7 @@ ZSH_THEME="agnoster"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git vi-mode)
+plugins=(git vi-mode jsontools)
 
 # Lower delay between insert/normal mode switching
 export KEYTIMEOUT=1
@@ -59,6 +59,13 @@ export KEYTIMEOUT=1
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
+
+autoload -U up-line-or-beginning-search
+autoload -U down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+bindkey "^P" up-line-or-beginning-search
+bindkey "^N" down-line-or-beginning-search
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -111,3 +118,5 @@ export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.g
 
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+alias fix-cerb='ps aux | rg ssh | rg adhoc | tr -s " " | cut -d " " -f 2 | xargs echo | xargs kill'
