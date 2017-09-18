@@ -22,6 +22,7 @@ call plug#begin('~/.local/share/nvim/plugged')
  Plug 'tpope/vim-surround'
  Plug 'w0rp/ale'
  Plug 'thinca/vim-visualstar'
+ Plug 'simnalamburt/vim-mundo'
 
 call plug#end()
 
@@ -149,9 +150,10 @@ cnoremap <C-space> <C-d>
 " use esc to enter normal mode in terminal
 tnoremap <Esc> <C-\><C-n>
 
+" useful toggles
 map <C-p> :FZF<cr>
-
 map <C-n> :NERDTreeToggle<cr>
+map <C-u> :MundoToggle<cr>
 
 " auto refresh nerdtree for new files
 function! NERDTreeRefresh()
