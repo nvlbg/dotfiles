@@ -153,7 +153,7 @@ tnoremap <Esc> <C-\><C-n>
 " useful toggles
 map <C-p> :FZF<cr>
 map <C-n> :NERDTreeToggle<cr>
-map <C-u> :MundoToggle<cr>
+map <leader>u :MundoToggle<cr>
 
 " auto refresh nerdtree for new files
 function! NERDTreeRefresh()
