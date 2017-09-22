@@ -192,3 +192,6 @@ bindsym XF86Calculator exec --no-startup-id ~/.config/i3/lock.sh
 bindsym XF86MyComputer exec --no-startup-id thunar
 bindsym XF86HomePage exec --no-startup-id firefox-bin
 
+bindsym --whole-window button18 workspace prev
+bindsym --whole-window button19 workspace next
+
