@@ -1,28 +1,43 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
+ " file management and navigation
  Plug 'scrooloose/nerdtree'
- Plug 'tpope/vim-unimpaired'
- Plug 'vim-airline/vim-airline'
- Plug 'vim-airline/vim-airline-themes'
+ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+ Plug 'junegunn/fzf.vim'
+ Plug 'majutsushi/tagbar'
+ 
+ " git
  Plug 'airblade/vim-gitgutter'
+ Plug 'tpope/vim-fugitive'
+
+ " languages
  Plug 'rust-lang/rust.vim'
  Plug 'elixir-lang/vim-elixir'
  Plug 'pangloss/vim-javascript'
  Plug 'mxw/vim-jsx'
  Plug 'solarnz/thrift.vim'
+
+ " color schemes
  Plug 'altercation/vim-colors-solarized'
- Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
- Plug 'junegunn/fzf.vim'
+ Plug 'morhetz/gruvbox'
+
+ " testing
  Plug 'janko-m/vim-test'
  Plug 'tpope/vim-dispatch'
- Plug 'jiangmiao/auto-pairs'
- Plug 'tpope/vim-fugitive'
+
+ " linting
+ Plug 'w0rp/ale'
+
+ " other
+ Plug 'tpope/vim-unimpaired'
  Plug 'tpope/vim-commentary'
  Plug 'tpope/vim-repeat'
  Plug 'tpope/vim-surround'
- Plug 'w0rp/ale'
- Plug 'thinca/vim-visualstar'
+ Plug 'vim-airline/vim-airline'
+ Plug 'vim-airline/vim-airline-themes'
  Plug 'simnalamburt/vim-mundo'
+ Plug 'jiangmiao/auto-pairs'
+ Plug 'thinca/vim-visualstar'
 
 call plug#end()
 
@@ -36,9 +51,9 @@ filetype plugin indent on
 runtime macros/matchit.vim
 
 syntax enable
-colorscheme solarized
 set background=dark
-let g:airline_theme='dark'
+colorscheme gruvbox
+let g:airline_theme='gruvbox'
 
 set tabstop=4     " tabs appear as 4 chars
 set softtabstop=4 " insert 4 spaces for tabs
@@ -86,17 +101,15 @@ set incsearch " display matches while typying
 set hlsearch  " highlight matches
 set showmatch " highlight matching parentheses
 
-" scroll before cursor hits bottom line
-set so=6
-
-" always show tab line
-set showtabline=2
+set scrolloff=6   " scroll before cursor hits bottom line
+set showtabline=2 " always show tab line
 
 " switch , and \
 let mapleader=","
 noremap \ ,
 nnoremap <leader>, ,
 
+" clear search highlights
 nnoremap <leader><space> :nohlsearch<cr>
 
 " switch moving on real and display lines
@@ -207,3 +220,32 @@ nmap <silent> <leader>a :TestSuite<CR>
 nmap <silent> <leader>l :TestLast<CR>
 nmap <silent> <leader>g :TestVisit<CR>
 
+function! GetBufferList()
+  redir =>buflist
+  silent! ls!
+  redir END
+  return buflist
+endfunction
+
+function! ToggleList(bufname, pfx)
+  let buflist = GetBufferList()
+  for bufnum in map(filter(split(buflist, '\n'), 'v:val =~ "'.a:bufname.'"'), 'str2nr(matchstr(v:val, "\\d\\+"))')
+    if bufwinnr(bufnum) != -1
+      exec(a:pfx.'close')
+      return
+    endif
+  endfor
+  if a:pfx == 'l' && len(getloclist(0)) == 0
+      echohl ErrorMsg
+      echo "Location List is Empty."
+      return
+  endif
+  let winnr = winnr()
+  exec(a:pfx.'open')
+  if winnr() != winnr
+    wincmd p
+  endif
+endfunction
+
+nmap <silent> <leader>l :call ToggleList("Location List", 'l')<CR>
+nmap <silent> <leader>e :call ToggleList("Quickfix List", 'c')<CR>
