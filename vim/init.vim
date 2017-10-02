@@ -104,6 +104,8 @@ set showmatch " highlight matching parentheses
 set scrolloff=6   " scroll before cursor hits bottom line
 set showtabline=2 " always show tab line
 
+set updatetime=250
+
 " switch , and \
 let mapleader=","
 noremap \ ,
@@ -192,6 +194,7 @@ let NERDTreeHijackNetrw=1
 command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
 
 set grepprg=rg\ --vimgrep
+let g:gitgutter_grep_command = 'rg'
 
 " makes cursor to appear as a | in insert mode
 set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor
