@@ -105,6 +105,7 @@ set scrolloff=6   " scroll before cursor hits bottom line
 set showtabline=2 " always show tab line
 
 set updatetime=250
+set timeoutlen=250
 
 " switch , and \
 let mapleader=","
