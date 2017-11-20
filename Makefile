@@ -1,4 +1,4 @@
-LINUX := alacritty i3 tmux vim x zsh
+LINUX := alacritty i3 rofi tmux vim x zsh
 OSX := alacritty karabiner tmux vim zsh
 
 default:
@@ -23,6 +23,11 @@ install-karabiner:
 	mkdir -p ~/.config
 	rm -rf ~/.config/karabiner
 	ln -fs $(PWD)/karabiner ~/.config/karabiner
+
+install-rofi:
+	mkdir -p ~/.config
+	rm -rf ~/.config/rofi
+	ln -fs $(PWD)/rofi ~/.config/rofi
 
 install-tmux:
 	ln -fs $(PWD)/tmux/tmux.conf ~/.tmux.conf

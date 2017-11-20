@@ -8,7 +8,6 @@ setxkbmap -option ctrl:nocaps
 # make short-pressed Ctrl behave like Escape:
 xcape -e 'Control_L=Escape'
 
-export PATH=$PATH:~/Programs/PopcornTime
 nm-applet &
 exec i3
 

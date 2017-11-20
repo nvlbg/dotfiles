@@ -1,0 +1,51 @@
+rofi.font:                           DejaVu Sans Mono 10
+! rofi.color-normal:                   argb:00000000,  #888888, argb:00000000,  #4c7899,  #dedede
+! rofi.color-urgent:                   argb:00000000,  #F99157, argb:00000000,  #F99157,  #1B2B34
+! rofi.color-active:                   argb:00000000,  #6699CC, argb:00000000,  #6699CC,  #1B2B34
+! rofi.color-window:                   argb:ee222222,  #4c7899, #4c7899
+rofi.bw:                             2
+rofi.location:                       0
+rofi.padding:                        10
+rofi.yoffset:                        -150
+rofi.ssh-command:                    alacritty -e ssh {host}
+rofi.levenschtein-sort:              1
+rofi.parse-known-hosts:              0
+rofi.matching:                       fuzzy
+rofi.kb-mode-next:                   Tab
+rofi.kb-mode-previous:               Shift+Tab
+rofi.kb-row-up:                      Control+p
+rofi.kb-row-down:                    Control+n
+
+! Base16 Gruvbox dark, medium
+! Author: Dawid Kurek (dawikur@gmail.com), morhetz (https://github.com/morhetz/gruvbox)
+
+! base00: #282828
+! base01: #3c3836
+! base02: #504945
+! base03: #665c54
+! base04: #bdae93
+! base05: #d5c4a1
+! base06: #ebdbb2
+! base07: #fbf1c7
+! base08: #fb4934
+! base09: #fe8019
+! base0A: #fabd2f
+! base0B: #b8bb26
+! base0C: #8ec07c
+! base0D: #83a598
+! base0E: #d3869b
+! base0F: #d65d0e
+
+! Enable the extended coloring options
+rofi.color-enabled: true
+
+! Property Name     BG       Border   Separator
+rofi.color-window:  #3c3836, #282828, #282828
+
+! Property Name     BG       FG       BG-alt   Head-BG  Head-FG
+rofi.color-normal:  #3c3836, #d5c4a1, #3c3836, #3c3836, #fbf1c7
+rofi.color-active:  #3c3836, #83a598, #3c3836, #3c3836, #83a598
+rofi.color-urgent:  #3c3836, #fb4934, #3c3836, #3c3836, #fb4934
+
+! Set the desired separator style
+rofi.separator-style: solid
