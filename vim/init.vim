@@ -1,10 +1,11 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
  " file management and navigation
- Plug 'scrooloose/nerdtree'
+ Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
  Plug 'junegunn/fzf.vim'
  Plug 'majutsushi/tagbar'
+ Plug 'simnalamburt/vim-mundo'
  
  " git
  Plug 'airblade/vim-gitgutter'
@@ -35,7 +36,6 @@ call plug#begin('~/.local/share/nvim/plugged')
  Plug 'tpope/vim-surround'
  Plug 'vim-airline/vim-airline'
  Plug 'vim-airline/vim-airline-themes'
- Plug 'simnalamburt/vim-mundo'
  Plug 'jiangmiao/auto-pairs'
  Plug 'thinca/vim-visualstar'
 
@@ -114,6 +114,8 @@ nnoremap <leader>, ,
 
 " clear search highlights
 nnoremap <leader><space> :nohlsearch<cr>
+
+map Y y$
 
 " switch moving on real and display lines
 nnoremap j gj
@@ -253,3 +255,7 @@ endfunction
 
 nmap <silent> <leader>l :call ToggleList("Location List", 'l')<CR>
 nmap <silent> <leader>e :call ToggleList("Quickfix List", 'c')<CR>
+
+" let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#tabline#left_sep = ' '
+" let g:airline#extensions#tabline#left_alt_sep = '|'
