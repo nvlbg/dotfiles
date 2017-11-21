@@ -2,6 +2,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 
  " file management and navigation
  Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+ Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
  Plug 'junegunn/fzf.vim'
  Plug 'majutsushi/tagbar'
