@@ -108,6 +108,8 @@ set showtabline=2 " always show tab line
 set updatetime=250
 set timeoutlen=250
 
+set mouse=a " enable mouse support
+
 " switch , and \
 let mapleader=","
 noremap \ ,
@@ -218,8 +220,8 @@ function! BedrockTransform(cmd) abort
   return 'NODE_ENV=test '.l:second_transform.' | ./node_modules/.bin/tap-spec'
 endfunction
 
-let g:test#custom_transformations = {'bedrock': function('BedrockTransform')}
-let g:test#transformation = 'bedrock'
+" let g:test#custom_transformations = {'bedrock': function('BedrockTransform')}
+" let g:test#transformation = 'bedrock'
 
 nmap <silent> <leader>t :TestNearest<CR>
 nmap <silent> <leader>T :TestFile<CR>
