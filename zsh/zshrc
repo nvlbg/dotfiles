@@ -94,6 +94,8 @@ bindkey "^N" down-line-or-beginning-search
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+ls ~/.profile_* 1> /dev/null 2>&1 && for f in ~/.profile_*; do source $f; done
+
 eval "$(direnv hook zsh)"
 
 show_virtual_env() {
@@ -106,7 +108,7 @@ export EDITOR=nvim
 export PS1=$PS1'$(show_virtual_env)'
 export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
-export PATH="$PATH:/usr/local/opt/gettext/bin:/Applications/Postgres.app/Contents/Versions/9.6/bin/:/Users/nikolay/projects/apache-cassandra-3.0.11/bin"
+export PATH="$PATH:/usr/local/opt/gettext/bin:/Applications/Postgres.app/Contents/Versions/9.6/bin:/Users/nikolay/projects/apache-cassandra-3.0.11/bin"
 
 cn () { CN_PATH="$(/Users/nikolay/.nvm/v0.10.32/lib/node_modules/@uber/change-node/change-node run $@)" && PATH="${CN_PATH:-$PATH}"; } # change-node t.uber.com/change-node
 
@@ -121,3 +123,5 @@ export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.g
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 alias fix-cerb='ps aux | rg ssh | rg adhoc | tr -s " " | cut -d " " -f 2 | xargs echo | xargs kill'
+alias tag-gc='for i in $( git tag | grep phabricator ); do git tag -d $i; done'
+brew analytics off 2>&1 >/dev/null
