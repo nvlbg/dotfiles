@@ -265,3 +265,4 @@ augroup javascript_folding
     au FileType javascript setlocal foldmethod=syntax
 augroup END
 set foldnestmax=3
+set foldlevel=20
