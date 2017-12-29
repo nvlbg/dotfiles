@@ -18,6 +18,7 @@ call plug#begin('~/.local/share/nvim/plugged')
  Plug 'pangloss/vim-javascript'
  Plug 'mxw/vim-jsx'
  Plug 'solarnz/thrift.vim'
+ Plug 'pallets/jinja'
 
  " color schemes
  Plug 'altercation/vim-colors-solarized'
@@ -118,6 +119,10 @@ nnoremap <leader>, ,
 " clear search highlights
 nnoremap <leader><space> :nohlsearch<cr>
 
+" easier fold toggling
+nnoremap <Enter> za
+
+" more intuitive semantics for Y
 map Y y$
 
 " switch moving on real and display lines
@@ -220,8 +225,8 @@ function! BedrockTransform(cmd) abort
   return 'NODE_ENV=test '.l:second_transform.' | ./node_modules/.bin/tap-spec'
 endfunction
 
-" let g:test#custom_transformations = {'bedrock': function('BedrockTransform')}
-" let g:test#transformation = 'bedrock'
+let g:test#custom_transformations = {'bedrock': function('BedrockTransform')}
+let g:test#transformation = 'bedrock'
 
 nmap <silent> <leader>t :TestNearest<CR>
 nmap <silent> <leader>T :TestFile<CR>
@@ -262,3 +267,10 @@ nmap <silent> <leader>e :call ToggleList("Quickfix List", 'c')<CR>
 " let g:airline#extensions#tabline#enabled = 1
 " let g:airline#extensions#tabline#left_sep = ' '
 " let g:airline#extensions#tabline#left_alt_sep = '|'
+
+" enable code folding for javascript
+augroup javascript_folding
+    au!
+    au FileType javascript setlocal foldmethod=syntax
+augroup END
+set foldnestmax=3
