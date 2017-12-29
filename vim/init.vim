@@ -5,8 +5,6 @@ call plug#begin('~/.local/share/nvim/plugged')
  Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
  Plug 'junegunn/fzf.vim'
- Plug 'majutsushi/tagbar'
- Plug 'simnalamburt/vim-mundo'
  
  " git
  Plug 'airblade/vim-gitgutter'
@@ -179,7 +177,6 @@ tnoremap <Esc> <C-\><C-n>
 " useful toggles
 map <C-p> :FZF<cr>
 map <C-n> :NERDTreeToggle<cr>
-map <leader>u :MundoToggle<cr>
 
 " auto refresh nerdtree for new files
 function! NERDTreeRefresh()
@@ -189,8 +186,6 @@ function! NERDTreeRefresh()
 endfunction
 
 autocmd BufEnter * call NERDTreeRefresh()
-
-let NERDTreeHijackNetrw=1
 
 " --column: Show column number
 " --line-number: Show line number
@@ -210,9 +205,8 @@ let g:gitgutter_grep_command = 'rg'
 " makes cursor to appear as a | in insert mode
 set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor
 
-" if has("autocmd")
-"     autocmd BufWritePost init.vim source $MYVIMRC
-" endif
+" automatically reload this config on change
+autocmd BufWritePost init.vim source $MYVIMRC
 
 " don't restrict jsx plugin to only .jsx files
 let g:jsx_ext_required = 0
@@ -226,7 +220,8 @@ function! BedrockTransform(cmd) abort
 endfunction
 
 let g:test#custom_transformations = {'bedrock': function('BedrockTransform')}
-let g:test#transformation = 'bedrock'
+autocmd BufEnter * unlet! g:test#transformation
+autocmd BufEnter *.js let g:test#transformation = 'bedrock'
 
 nmap <silent> <leader>t :TestNearest<CR>
 nmap <silent> <leader>T :TestFile<CR>
@@ -263,10 +258,6 @@ endfunction
 
 nmap <silent> <leader>l :call ToggleList("Location List", 'l')<CR>
 nmap <silent> <leader>e :call ToggleList("Quickfix List", 'c')<CR>
-
-" let g:airline#extensions#tabline#enabled = 1
-" let g:airline#extensions#tabline#left_sep = ' '
-" let g:airline#extensions#tabline#left_alt_sep = '|'
 
 " enable code folding for javascript
 augroup javascript_folding
