@@ -94,7 +94,10 @@ bindkey "^N" down-line-or-beginning-search
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+# disable errors when globs don't match anything
+setopt +o nomatch
 ls ~/.profile_* 1> /dev/null 2>&1 && for f in ~/.profile_*; do source $f; done
+which brew 2>&1 >/dev/null && brew analytics off 2>&1 >/dev/null
 
 eval "$(direnv hook zsh)"
 
@@ -119,9 +122,7 @@ cn () { CN_PATH="$(/Users/nikolay/.nvm/v0.10.32/lib/node_modules/@uber/change-no
 # --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 alias fix-cerb='ps aux | rg ssh | rg adhoc | tr -s " " | cut -d " " -f 2 | xargs echo | xargs kill'
 alias tag-gc='for i in $( git tag | grep phabricator ); do git tag -d $i; done'
-brew analytics off 2>&1 >/dev/null
