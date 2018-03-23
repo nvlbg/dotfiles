@@ -14,8 +14,10 @@ call plug#begin('~/.local/share/nvim/plugged')
  Plug 'rust-lang/rust.vim'
  Plug 'elixir-lang/vim-elixir'
  Plug 'pangloss/vim-javascript'
+ Plug 'fatih/vim-go'
  Plug 'mxw/vim-jsx'
  Plug 'solarnz/thrift.vim'
+ Plug 'gurpreetatwal/vim-avro'
  Plug 'pallets/jinja'
 
  " color schemes
@@ -161,6 +163,11 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
+tnoremap <C-h> <C-\><C-n><C-w>h
+tnoremap <C-j> <C-\><C-n><C-w>j
+tnoremap <C-k> <C-\><C-n><C-w>k
+tnoremap <C-l> <C-\><C-n><C-w>l
+
 " go to alternate buffer
 nnoremap <space><space> <C-^>
 
@@ -266,3 +273,10 @@ augroup javascript_folding
 augroup END
 set foldnestmax=3
 set foldlevel=20
+
+" use .. to go to parent directory,
+" but only for buffers containing git blob or tree
+autocmd User fugitive 
+  \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
+  \   nnoremap <buffer> .. :edit %:h<CR> |
+  \ endif
