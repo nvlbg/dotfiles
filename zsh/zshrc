@@ -126,3 +126,7 @@ export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.g
 
 alias fix-cerb='ps aux | rg ssh | rg adhoc | tr -s " " | cut -d " " -f 2 | xargs echo | xargs kill'
 alias tag-gc='for i in $( git tag | grep phabricator ); do git tag -d $i; done'
+brew analytics off 2>&1 >/dev/null
+
+[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
+command -v gvm && gvm use 1.9
