@@ -5,7 +5,7 @@ call plug#begin('~/.local/share/nvim/plugged')
  Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
  Plug 'junegunn/fzf.vim'
- 
+
  " git
  Plug 'airblade/vim-gitgutter'
  Plug 'tpope/vim-fugitive'
@@ -278,7 +278,7 @@ set foldlevel=20
 
 " use .. to go to parent directory,
 " but only for buffers containing git blob or tree
-autocmd User fugitive 
+autocmd User fugitive
   \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
   \   nnoremap <buffer> .. :edit %:h<CR> |
   \ endif
