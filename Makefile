@@ -1,5 +1,5 @@
-LINUX := alacritty i3 rofi tmux vim x zsh
-OSX := alacritty karabiner tmux vim zsh
+LINUX := alacritty i3 inputrc rofi tmux vim x zsh
+OSX := alacritty inputrc karabiner tmux vim zsh
 
 default:
 	$(error Use `make linux` or `make osx`)
@@ -18,6 +18,9 @@ install-i3:
 	rm -rf ~/.config/i3status
 	ln -fs $(PWD)/i3 ~/.config/i3
 	ln -fs $(PWD)/i3status ~/.config/i3status
+
+install-inputrc:
+	ln -fs $(PWD)/inputrc/inputrc ~/.inputrc
 
 install-karabiner:
 	mkdir -p ~/.config
