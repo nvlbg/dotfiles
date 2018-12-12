@@ -15,10 +15,12 @@ call plug#begin('~/.local/share/nvim/plugged')
  Plug 'elixir-lang/vim-elixir'
  Plug 'pangloss/vim-javascript'
  Plug 'fatih/vim-go'
+ Plug 'jodosha/vim-godebug'
  Plug 'mxw/vim-jsx'
  Plug 'solarnz/thrift.vim'
  Plug 'gurpreetatwal/vim-avro'
  Plug 'pallets/jinja'
+ Plug 'jeetsukumaran/vim-pythonsense'
 
  " color schemes
  Plug 'altercation/vim-colors-solarized'
@@ -40,6 +42,7 @@ call plug#begin('~/.local/share/nvim/plugged')
  Plug 'vim-airline/vim-airline-themes'
  Plug 'jiangmiao/auto-pairs'
  Plug 'thinca/vim-visualstar'
+ Plug 'vim-scripts/argtextobj.vim'
 
 call plug#end()
 
@@ -111,6 +114,7 @@ set timeoutlen=250
 
 set mouse=a " enable mouse support
 
+cnoremap %% <C-R>=expand('%:h').'/'<cr>
 " switch , and \
 let mapleader=","
 noremap \ ,
@@ -219,6 +223,9 @@ autocmd BufWritePost init.vim source $MYVIMRC
 
 " don't restrict jsx plugin to only .jsx files
 let g:jsx_ext_required = 0
+
+" use goimports instead of go-fmt
+let g:go_fmt_command = "goimports"
 
 " custom test preferences
 let test#strategy = "neovim"
