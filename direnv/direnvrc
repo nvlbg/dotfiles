@@ -1,0 +1,7 @@
+layout_golang() {
+    if [[ -n `go version | grep -o "go$1"` ]];then
+        return
+    fi
+
+    brew switch go $1
+}

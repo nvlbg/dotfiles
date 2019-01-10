@@ -1,5 +1,5 @@
-LINUX := alacritty i3 inputrc rofi tmux vim x zsh
-OSX := alacritty inputrc karabiner tmux vim zsh
+LINUX := alacritty direnv i3 inputrc rofi tmux vim x zsh
+OSX := alacritty direnv inputrc karabiner tmux vim zsh
 
 default:
 	$(error Use `make linux` or `make osx`)
@@ -11,6 +11,9 @@ install-alacritty:
 	mkdir -p ~/.config
 	rm -rf ~/.config/alacritty
 	ln -fs $(PWD)/alacritty ~/.config/alacritty
+
+install-direnv:
+	ln -fs $(PWD)/direnv/direnvrc ~/.direnvrc
 
 install-i3:
 	mkdir -p ~/.config
