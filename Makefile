@@ -49,4 +49,4 @@ install-x:
 
 install-zsh:
 	ln -fs $(PWD)/zsh/zshrc ~/.zshrc
-
+	ln -fs $(PWD)/zsh/zpreztorc ~/.zpreztorc
