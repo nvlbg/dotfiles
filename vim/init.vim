@@ -245,6 +245,9 @@ nmap <silent> <leader>a :TestSuite<CR>
 nmap <silent> <leader>l :TestLast<CR>
 nmap <silent> <leader>g :TestVisit<CR>
 
+nmap <silent> <leader>r :GoRun<CR>
+nmap <silent> <leader>c :GoCoverage<CR>
+
 function! GetBufferList()
   redir =>buflist
   silent! ls!
