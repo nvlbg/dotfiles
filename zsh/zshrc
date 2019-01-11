@@ -27,7 +27,7 @@ export EDITOR=nvim
 export PS1=$PS1'$(show_virtual_env)'
 export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
-export PATH="$PATH:${HOME}/.cargo/bin"
+export PATH="${PATH}:${HOME}/.cargo/bin:${GOPATH}/bin"
 export GOPATH=${HOME}/gocode
 
 # --files: List files that would be searched but do not search
@@ -39,13 +39,24 @@ export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.g
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-if [[ "$OSTYPE" == "darwin"* ]]; then
+if [[ "$OSTYPE" == "linux-gnu" ]]; then
+    # Linux
+    export ANDROID_HOME=~/Android/Sdk
+    export PATH="$PATH:/.yarn/bin:${HOME}/.config/yarn/global/node_modules/.bin"
+
+    # export NVM_DIR="$HOME/.nvm"
+    # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+    # [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+elif [[ "$OSTYPE" == "darwin"* ]]; then
     # MaxOS
     ulimit -n 8192
     alias fix-cerb='ps aux | rg ssh | rg adhoc | tr -s " " | cut -d " " -f 2 | xargs echo | xargs kill'
     alias tag-gc='for i in $( git tag | grep phabricator ); do git tag -d $i; done'
+    # TODO: switch to use docker and remove postgre and cassandra from path
     export PATH="$PATH:/usr/local/opt/gettext/bin:/Applications/Postgres.app/Contents/Versions/9.6/bin:/Users/nikolay/projects/apache-cassandra-3.0.11/bin"
     # load profile scripts
     # ls ~/.profile_* 1> /dev/null 2>&1 && for f in ~/.profile_*; do source $f; done
     # brew analytics off 2>&1 >/dev/null
+    #
+    cn () { CN_PATH="$(/Users/nikolay/.nvm/v0.10.32/lib/node_modules/@uber/change-node/change-node run $@)" && PATH="${CN_PATH:-$PATH}"; } # change-node t.uber.com/change-node
 fi
