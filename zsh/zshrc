@@ -27,8 +27,8 @@ export EDITOR=nvim
 export PS1=$PS1'$(show_virtual_env)'
 export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
-export PATH="${PATH}:${HOME}/.cargo/bin:${GOPATH}/bin"
 export GOPATH=${HOME}/gocode
+export PATH="${PATH}:${HOME}/.cargo/bin:${GOPATH}/bin"
 
 # --files: List files that would be searched but do not search
 # --no-ignore: Do not respect .gitignore, etc...

@@ -5,6 +5,7 @@ call plug#begin('~/.local/share/nvim/plugged')
  Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
  Plug 'junegunn/fzf.vim'
+ Plug 'vimwiki/vimwiki'
 
  " git
  Plug 'airblade/vim-gitgutter'
@@ -292,3 +293,5 @@ autocmd User fugitive
   \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
   \   nnoremap <buffer> .. :edit %:h<CR> |
   \ endif
+
+let g:vimwiki_list = [{'path': '~/Documents/wiki/text/', 'path_html': '~/Documents/wiki/html/'}]
