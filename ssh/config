@@ -1,0 +1,9 @@
+AddKeysToAgent yes
+
+Host dorm
+    IdentityFile "~/.ssh/id_rsa"
+    User pi
+
+Host home
+    IdentityFile "~/.ssh/id_dorm"
+    User dorm

@@ -23,6 +23,11 @@ show_virtual_env() {
   fi
 }
 
+mkcd () {
+    mkdir -p "${1}"
+    cd "${1}"
+}
+
 export EDITOR=nvim
 export PS1=$PS1'$(show_virtual_env)'
 export LC_CTYPE=en_US.UTF-8

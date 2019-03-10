@@ -1,5 +1,5 @@
-LINUX := alacritty direnv i3 inputrc rofi tmux vim x zsh
-OSX := alacritty direnv inputrc karabiner tmux vim zsh
+LINUX := alacritty direnv i3 inputrc rofi ssh tmux vim x zsh
+OSX := alacritty direnv inputrc karabiner ssh tmux vim zsh
 
 default:
 	$(error Use `make linux` or `make osx`)
@@ -34,6 +34,9 @@ install-rofi:
 	mkdir -p ~/.config
 	rm -rf ~/.config/rofi
 	ln -fs $(PWD)/rofi ~/.config/rofi
+
+install-ssh:
+	ln -fs $(PWD)/ssh/config ~/.ssh/config
 
 install-tmux:
 	ln -fs $(PWD)/tmux/tmux.conf ~/.tmux.conf

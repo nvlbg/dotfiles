@@ -9,5 +9,14 @@ setxkbmap -option ctrl:nocaps
 xcape -e 'Control_L=Escape'
 
 nm-applet &
-exec i3
+redshift &
 
+# start ssh-agent
+if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+    ssh-agent > ~/.ssh-agent-thing
+fi
+if [[ ! "$SSH_AUTH_SOCK" ]]; then
+    eval "$(<~/.ssh-agent-thing)"
+fi
+
+exec i3
