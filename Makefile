@@ -47,7 +47,7 @@ install-vim:
 	ln -fs $(PWD)/vim ~/.config/nvim
 
 install-x:
-	ln -fs $(PWD)/x11/Xinitrc ~/.Xinitrc
+	ln -fs $(PWD)/x11/Xinitrc ~/.xinitrc
 	ln -fs $(PWD)/x11/Xmodmap ~/.Xmodmap
 
 install-zsh:
