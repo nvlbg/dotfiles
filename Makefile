@@ -1,4 +1,4 @@
-LINUX := alacritty direnv i3 inputrc rofi ssh tmux vim x zsh
+LINUX := alacritty cron-linux direnv i3 inputrc rofi ssh tmux vim x zsh
 OSX := alacritty direnv inputrc karabiner ssh tmux vim zsh
 
 default:
@@ -11,6 +11,12 @@ install-alacritty:
 	mkdir -p ~/.config
 	rm -rf ~/.config/alacritty
 	ln -fs $(PWD)/alacritty ~/.config/alacritty
+
+# this may require sudo
+install-cron-linux:
+	ln -fs $(shell pwd)/vim/vimwiki-sync.sh /etc/local.d/vimwiki-sync.start || true
+	ln -fs $(shell pwd)/vim/vimwiki-sync.sh /etc/local.d/vimwiki-sync.stop || true
+	crontab $(shell pwd)/vim/vimwiki-sync.cron || true
 
 install-direnv:
 	ln -fs $(PWD)/direnv/direnvrc ~/.direnvrc

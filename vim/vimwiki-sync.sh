@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 source ~/.ssh-agent-thing
 cd ~/Documents/wiki
 CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
@@ -26,4 +26,5 @@ if git merge master; then
 else
     # Merge conflict
     git merge --abort
+    git checkout "${CURRENT_BRANCH}"
 fi
