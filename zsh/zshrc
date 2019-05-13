@@ -12,6 +12,13 @@ zle -N down-line-or-beginning-search
 bindkey "^P" up-line-or-beginning-search
 bindkey "^N" down-line-or-beginning-search
 
+autoload -U edit-command-line
+zle -N edit-command-line
+bindkey '^X^E' edit-command-line
+
+bindkey '^A' beginning-of-line
+bindkey '^E' end-of-line
+
 # disable errors when globs don't match anything
 setopt +o nomatch
 
@@ -34,14 +41,14 @@ export PS1=$PS1'$(show_virtual_env)'
 export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export GOPATH=${HOME}/gocode
-export PATH="${PATH}:${HOME}/.cargo/bin:${GOPATH}/bin"
+export PATH="${PATH}:${HOME}/.cargo/bin:${GOPATH}/bin:${HOME}/.local/bin"
 
 # --files: List files that would be searched but do not search
 # --no-ignore: Do not respect .gitignore, etc...
 # --hidden: Search hidden files and folders
 # --follow: Follow symlinks
 # --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
-export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*" 2> /dev/null'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -49,7 +56,15 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
     # Linux
     export ANDROID_HOME=~/Android/Sdk
     export PATH="$PATH:/.yarn/bin:${HOME}/.config/yarn/global/node_modules/.bin"
+    alias open='xdg-open'
 
+    # start ssh-agent
+    if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+        ssh-agent > ~/.ssh-agent-thing
+    fi
+    if [[ ! "$SSH_AUTH_SOCK" ]]; then
+        eval "$(<~/.ssh-agent-thing)" &> /dev/null
+    fi
     # export NVM_DIR="$HOME/.nvm"
     # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
     # [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
@@ -65,4 +80,13 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     # brew analytics off 2>&1 >/dev/null
     #
     cn () { CN_PATH="$(/Users/nikolay/.nvm/v0.10.32/lib/node_modules/@uber/change-node/change-node run $@)" && PATH="${CN_PATH:-$PATH}"; } # change-node t.uber.com/change-node
+fi
+
+# configuration for terminal buffers in neovim
+if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
+    if [ -x "$(command -v nvr)" ]; then
+        alias nvim='nvr -o'
+    else
+        alias nvim='echo "No nesting!"'
+    fi
 fi

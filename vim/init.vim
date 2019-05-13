@@ -1,3 +1,9 @@
+if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
+  silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
 call plug#begin('~/.local/share/nvim/plugged')
 
  " file management and navigation
@@ -169,6 +175,7 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
 if has('nvim')
+    " switch between splits
     tnoremap <C-h> <C-\><C-n><C-w>h
     tnoremap <C-j> <C-\><C-n><C-w>j
     tnoremap <C-k> <C-\><C-n><C-w>k
@@ -176,6 +183,19 @@ if has('nvim')
 
     " use esc to enter normal mode in terminal
     tnoremap <Esc> <C-\><C-n>
+    " send esc to the terminal
+    tnoremap <C-v><Esc> <Esc>
+
+    " highlight terminal cursor
+    highlight! link TermCursor Cursor
+    highlight! TermCursorNC guibg=red guifg=green ctermbg=1 ctermfg=15
+
+    " disable cursorline in terminal buffers so the above highlight is always
+    " visible
+    autocmd TermOpen term://* setlocal nocursorline
+
+    " use zsh for terminal
+    set shell=/usr/bin/zsh
 endif
 
 " go to alternate buffer
@@ -213,7 +233,8 @@ autocmd BufEnter * call NERDTreeRefresh()
 " --color: Search color options
 command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
 
-set grepprg=rg\ --vimgrep
+set grepprg=rg\ --no-heading\ --vimgrep
+set grepformat=%f:%l:%c:%m,%f:%l:%m
 let g:gitgutter_grep_command = 'rg'
 
 " makes cursor to appear as a | in insert mode
