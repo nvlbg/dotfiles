@@ -1,5 +1,5 @@
 #!/bin/sh
-source ~/.ssh-agent-thing
+[ -x ~/.ssh-agent-thing ] && source ~/.ssh-agent-thing
 cd ~/Documents/wiki
 CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 

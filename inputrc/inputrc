@@ -1,3 +1,7 @@
 set editing-mode vi
 set keymap vi-command
 set enable-bracketed-paste on
+set bind-tty-special-chars off
+Control-w: backward-kill-word
+Control-n: history-search-forward
+Control-p: history-search-backward

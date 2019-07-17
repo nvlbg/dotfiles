@@ -11,7 +11,6 @@ call plug#begin('~/.local/share/nvim/plugged')
  Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
  Plug 'junegunn/fzf.vim'
- Plug 'vimwiki/vimwiki'
 
  " git
  Plug 'airblade/vim-gitgutter'
@@ -28,6 +27,7 @@ call plug#begin('~/.local/share/nvim/plugged')
  Plug 'gurpreetatwal/vim-avro'
  Plug 'pallets/jinja'
  Plug 'jeetsukumaran/vim-pythonsense'
+ Plug 'kernel-panic96/vim-go-extensions'
 
  " color schemes
  Plug 'altercation/vim-colors-solarized'
@@ -37,8 +37,16 @@ call plug#begin('~/.local/share/nvim/plugged')
  Plug 'janko-m/vim-test'
  Plug 'tpope/vim-dispatch'
 
- " linting
+ " debugging
+ Plug 'sebdah/vim-delve'
+
+ " linting and code completion
  Plug 'w0rp/ale'
+ Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
+ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
  " other
  Plug 'tpope/vim-unimpaired'
@@ -50,6 +58,7 @@ call plug#begin('~/.local/share/nvim/plugged')
  Plug 'jiangmiao/auto-pairs'
  Plug 'thinca/vim-visualstar'
  Plug 'vim-scripts/argtextobj.vim'
+ Plug 'vimwiki/vimwiki'
 
 call plug#end()
 
@@ -195,7 +204,7 @@ if has('nvim')
     autocmd TermOpen term://* setlocal nocursorline
 
     " use zsh for terminal
-    set shell=/usr/bin/zsh
+    set shell=/bin/zsh
 endif
 
 " go to alternate buffer
@@ -211,6 +220,13 @@ cnoremap <C-space> <C-d>
 " useful toggles
 map <C-p> :FZF<cr>
 map <C-n> :NERDTreeToggle<cr>
+
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-b': 'split',
+  \ 'ctrl-v': 'vsplit' }
+
+let g:fzf_tags_command = 'ctags -R'
 
 " auto refresh nerdtree for new files
 function! NERDTreeRefresh()
@@ -316,3 +332,7 @@ autocmd User fugitive
   \ endif
 
 let g:vimwiki_list = [{'path': '~/Documents/wiki/text/', 'path_html': '~/Documents/wiki/html/'}]
+
+let g:LanguageClient_serverCommands = {
+    \ 'go': ['go-langserver']
+    \ }
