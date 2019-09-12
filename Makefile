@@ -31,6 +31,7 @@ install-i3:
 
 install-inputrc:
 	ln -fs $(PWD)/inputrc/inputrc ~/.inputrc
+	ln -fs $(PWD)/inputrc/editrc ~/.editrc
 
 install-karabiner:
 	mkdir -p ~/.config
