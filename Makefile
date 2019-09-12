@@ -1,5 +1,5 @@
-LINUX := alacritty direnv i3 inputrc rofi ssh tmux vim x zsh
-OSX := alacritty direnv inputrc karabiner ssh tmux vim zsh
+LINUX := alacritty direnv git i3 inputrc rofi ssh tmux vim x zsh
+OSX := alacritty direnv git inputrc karabiner ssh tmux vim zsh
 SUDO := cron-linux udevmon
 
 default:
@@ -21,6 +21,11 @@ install-cron-linux:
 
 install-direnv:
 	ln -fs $(PWD)/direnv/direnvrc ~/.direnvrc
+
+install-git:
+	ln -fs $(PWD)/git/config ~/.gitconfig.custom
+	grep '.gitconfig.custom' ~/.gitconfig >/dev/null || \
+		echo '\n[include]\n    path = .gitconfig.custom' >> ~/.gitconfig
 
 install-i3:
 	mkdir -p ~/.config

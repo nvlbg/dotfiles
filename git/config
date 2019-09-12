@@ -1,0 +1,6 @@
+[alias]
+	st = status -s
+	lol = log --graph --oneline --all
+	co = checkout
+    a = add
+    c = commit
