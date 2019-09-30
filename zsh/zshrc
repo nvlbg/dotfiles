@@ -57,6 +57,7 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
     export ANDROID_HOME=~/Android/Sdk
     export PATH="$PATH:/.yarn/bin:${HOME}/.config/yarn/global/node_modules/.bin"
     alias open='xdg-open'
+    alias pbcopy='wl-copy'
 
     # start ssh-agent
     if ! pgrep -u "$USER" ssh-agent > /dev/null; then
