@@ -43,6 +43,9 @@ export LC_ALL=en_US.UTF-8
 export GOPATH=${HOME}/gocode
 export PATH="${PATH}:${HOME}/.cargo/bin:${GOPATH}/bin:${HOME}/.local/bin"
 
+alias gd='git status --short | fzf --ansi --color --multi --preview="echo {} | sed -E -e \"s/[[:blank:]]+.[[:blank:]]+//\" | xargs git diff --color=always" | awk "{print $2}" | xargs git diff --'
+alias mvlastd="ls -t ~/Downloads/ | head -1 | xargs -I '%' mv ~/Downloads/'%'"
+
 # --files: List files that would be searched but do not search
 # --no-ignore: Do not respect .gitignore, etc...
 # --hidden: Search hidden files and folders
@@ -77,7 +80,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     # TODO: switch to use docker and remove postgre and cassandra from path
     export PATH="$PATH:/usr/local/opt/gettext/bin:/Applications/Postgres.app/Contents/Versions/9.6/bin:/Users/nikolay/projects/apache-cassandra-3.0.11/bin"
     # load profile scripts
-    # ls ~/.profile_* 1> /dev/null 2>&1 && for f in ~/.profile_*; do source $f; done
+    ls ~/.profile_* 1> /dev/null 2>&1 && for f in ~/.profile_*; do source $f; done
     # brew analytics off 2>&1 >/dev/null
     #
     cn () { CN_PATH="$(/Users/nikolay/.nvm/v0.10.32/lib/node_modules/@uber/change-node/change-node run $@)" && PATH="${CN_PATH:-$PATH}"; } # change-node t.uber.com/change-node

@@ -21,13 +21,14 @@ call plug#begin('~/.local/share/nvim/plugged')
  Plug 'elixir-lang/vim-elixir'
  Plug 'pangloss/vim-javascript'
  Plug 'fatih/vim-go'
- Plug 'jodosha/vim-godebug'
  Plug 'mxw/vim-jsx'
  Plug 'solarnz/thrift.vim'
+ Plug 'uarun/vim-protobuf'
  Plug 'gurpreetatwal/vim-avro'
  Plug 'pallets/jinja'
  Plug 'jeetsukumaran/vim-pythonsense'
  Plug 'kernel-panic96/vim-go-extensions'
+ Plug 'jparise/vim-graphql'
 
  " color schemes
  Plug 'altercation/vim-colors-solarized'
@@ -183,6 +184,9 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
+inoremap ;p import pdb; pdb.set_trace()
+inoremap ;i import ipdb; ipdb.set_trace()
+
 if has('nvim')
     " switch between splits
     tnoremap <C-h> <C-\><C-n><C-w>h
@@ -265,6 +269,9 @@ let g:jsx_ext_required = 0
 " use goimports instead of go-fmt
 let g:go_fmt_command = "goimports"
 
+" run lint and vet on save
+let g:go_metalinter_autosave = 1
+
 " custom test preferences
 let test#strategy = "neovim"
 function! BedrockTransform(cmd) abort
@@ -276,6 +283,7 @@ endfunction
 let g:test#custom_transformations = {'bedrock': function('BedrockTransform')}
 autocmd BufEnter * unlet! g:test#transformation
 autocmd BufEnter *.js let g:test#transformation = 'bedrock'
+let g:test#python#pytest#executable = 'vim_test_runner_helper'
 
 nmap <silent> <leader>t :TestNearest<CR>
 nmap <silent> <leader>T :TestFile<CR>
