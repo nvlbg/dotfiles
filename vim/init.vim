@@ -20,7 +20,7 @@ call plug#begin('~/.local/share/nvim/plugged')
  Plug 'rust-lang/rust.vim'
  Plug 'elixir-lang/vim-elixir'
  Plug 'pangloss/vim-javascript'
- Plug 'fatih/vim-go'
+ Plug 'jodosha/vim-godebug'
  Plug 'mxw/vim-jsx'
  Plug 'solarnz/thrift.vim'
  Plug 'uarun/vim-protobuf'
@@ -42,7 +42,7 @@ call plug#begin('~/.local/share/nvim/plugged')
  Plug 'sebdah/vim-delve'
 
  " linting and code completion
- Plug 'w0rp/ale'
+ " Plug 'w0rp/ale'
  Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
@@ -60,6 +60,7 @@ call plug#begin('~/.local/share/nvim/plugged')
  Plug 'thinca/vim-visualstar'
  Plug 'vim-scripts/argtextobj.vim'
  Plug 'vimwiki/vimwiki'
+ Plug 'chrisbra/csv.vim'
 
 call plug#end()
 
@@ -73,9 +74,9 @@ filetype plugin indent on
 runtime macros/matchit.vim
 
 syntax enable
-set background=dark
-colorscheme gruvbox
-let g:airline_theme='gruvbox'
+let g:airline_theme='base16'
+source ~/.config/nvim/colours.vim
+source ~/.config/nvim/cyrillic.vim
 
 set tabstop=4     " tabs appear as 4 chars
 set softtabstop=4 " insert 4 spaces for tabs
@@ -261,16 +262,10 @@ let g:gitgutter_grep_command = 'rg'
 set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor
 
 " automatically reload this config on change
-autocmd BufWritePost init.vim source $MYVIMRC
+" autocmd BufWritePost init.vim source $MYVIMRC
 
 " don't restrict jsx plugin to only .jsx files
 let g:jsx_ext_required = 0
-
-" use goimports instead of go-fmt
-let g:go_fmt_command = "goimports"
-
-" run lint and vet on save
-let g:go_metalinter_autosave = 1
 
 " custom test preferences
 let test#strategy = "neovim"
@@ -291,7 +286,6 @@ nmap <silent> <leader>a :TestSuite<CR>
 nmap <silent> <leader>l :TestLast<CR>
 nmap <silent> <leader>g :TestVisit<CR>
 
-nmap <silent> <leader>r :GoRun<CR>
 nmap <silent> <leader>c :GoCoverage<CR>
 
 function! GetBufferList()
@@ -339,8 +333,151 @@ autocmd User fugitive
   \   nnoremap <buffer> .. :edit %:h<CR> |
   \ endif
 
-let g:vimwiki_list = [{'path': '~/Documents/wiki/text/', 'path_html': '~/Documents/wiki/html/'}]
 
-let g:LanguageClient_serverCommands = {
-    \ 'go': ['go-langserver']
+" deoplete
+let g:deoplete#enable_at_startup = 1
+set completeopt=menu
+
+" LanguageClient-neovim
+let g:LanguageClient_preferredMarkupKind = ['plaintext', 'markdown']
+let g:LanguageClient_rootMarkers = {
+    \ 'go': ['main.go']
     \ }
+let g:LanguageClient_serverCommands = {
+    \ 'go': ['gopls'],
+    \ 'python': ['pyls']
+    \ }
+
+function LC_maps()
+  if has_key(g:LanguageClient_serverCommands, &filetype)
+    nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+    nnoremap <silent> <C-]> :call MyGoToDefinition()<CR>
+    nnoremap <silent> gi :call LanguageClient#textDocument_implementation()<CR>
+    nnoremap <silent> gr :call LanguageClient#textDocument_references()<CR>
+    nnoremap <silent> gm :call LanguageClient_contextMenu()<CR>
+    nnoremap <silent> <leader>r :call LanguageClient#textDocument_rename()<CR>
+  endif
+endfunction
+
+function! MyGoToDefinition(...) abort
+  " ref: https://github.com/davidhalter/jedi-vim/blob/master/pythonx/jedi_vim.py#L329-L345
+
+  " Get the current position
+  let pos = {
+          \ 'fname': expand('%:p'),
+          \ 'line': line("."),
+          \ 'col': col("."),
+          \ 'word': expand("<cword>")
+          \ }
+
+  call LanguageClient#textDocument_definition({'handle': v:true}, function('MyGoToDefinitionCallback', [pos]))
+endfunction
+
+function! MyGoToDefinitionCallback(pos, ...) abort
+  " Get the original position
+  let l:fname = a:pos['fname']
+  let l:line = a:pos['line']
+  let l:col = a:pos['col']
+  let l:word = a:pos['word']
+
+  " Get the position of definition
+  let l:jump_fname = expand('%:p')
+  let l:jump_line = line(".")
+  let l:jump_col = col(".")
+
+  " If the position is the same as previous, ignore the jump action
+  if l:fname == l:jump_fname && l:line == l:jump_line
+    return
+  endif
+
+  " Workaround: Jump to origial file. If the function is in rust, there is a
+  " way to ignore the behaviour
+  if &modified
+    exec 'hide edit'  l:fname
+  else
+    exec 'edit' l:fname
+  endif
+  call cursor(l:line, l:col)
+
+  " Write a temp tags file
+  let l:temp_tags_fname = tempname()
+  let l:temp_tags_content = printf("%s\t%s\t%s", l:word, l:jump_fname,
+      \ printf("call cursor(%d, %d)", l:jump_line, l:jump_col))
+  call writefile([l:temp_tags_content], l:temp_tags_fname)
+
+  " Store the original setting
+  let l:ori_wildignore = &wildignore
+  let l:ori_tags = &tags
+
+  " Set temporary new setting
+  set wildignore=
+  let &tags = l:temp_tags_fname
+
+  " Add to new stack
+  execute ":tjump " . l:word
+
+  " Restore original setting
+  let &tags = l:ori_tags
+  let &wildignore = l:ori_wildignore
+
+  " Remove temporary file
+  if filereadable(l:temp_tags_fname)
+    call delete(l:temp_tags_fname, "rf")
+  endif
+endfunction
+
+autocmd FileType * call LC_maps()
+
+" Run gofmt on save
+autocmd BufWritePre *.go :call LanguageClient#textDocument_formatting_sync()
+
+" clipboard synchronization
+function! Osc52Yank()
+    let buffer=system('base64 -w0', @0)
+    let buffer=substitute(buffer, "\n$", "", "")
+    let buffer='\e]52;c;'.buffer.'\x07'
+    silent exe "!echo -ne ".shellescape(buffer)." > ".shellescape(g:tty)
+endfunction
+
+augroup Yank
+    autocmd!
+    autocmd TextYankPost * if v:event.operator ==# 'y' | call Osc52Yank() | endif
+augroup END
+
+function! GetSourcegraphURL(config) abort
+    if a:config['remote'] =~ "^gitolite@code.uber.internal"
+        let repository = substitute(matchstr(a:config['remote'], 'code.uber.internal.*'), ':', '/', '')
+        let commit = a:config['commit']
+        let path = a:config['path']
+
+        let url = printf("https://sourcegraph.uberinternal.com/%s@%s/-/blob/%s",
+            \ repository,
+            \ commit,
+            \ path)
+
+        let fromLine = a:config['line1']
+        let toLine = a:config['line2']
+        if fromLine > 0 && fromLine == toLine
+            let url .= '#L' . fromLine
+        elseif toLine > 0
+            let url .= '#L' . fromLine . '-' . toLine
+        endif
+
+        " copy url to clipboard as well
+        let buffer=system('base64 -w0', url)
+        let buffer=substitute(buffer, "\n$", "", "")
+        let buffer='\e]52;c;'.buffer.'\x07'
+        silent exe "!echo -ne ".shellescape(buffer)." > ".shellescape(g:tty)
+
+        return url
+    endif
+    return ''
+endfunction
+
+if !exists('g:fugitive_browse_handlers')
+    let g:fugitive_browse_handlers = []
+endif
+
+if index(g:fugitive_browse_handlers, function('GetSourcegraphURL')) < 0
+    call insert(g:fugitive_browse_handlers, function('GetSourcegraphURL'))
+endif

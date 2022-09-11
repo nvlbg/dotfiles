@@ -1,0 +1,11 @@
+[Unit]
+Description=Apply desired keyboard layout and shortcuts upon attaching a new keyboard
+
+[Service]
+Type=oneshot
+User=nikolay
+Group=nikolay
+ExecStart=/usr/local/bin/keyboard-attached.sh
+
+[Install]
+WantedBy=multi-user.target

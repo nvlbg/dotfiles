@@ -1,6 +1,6 @@
 #!/bin/sh
-[ -x ~/.ssh-agent-thing ] && source ~/.ssh-agent-thing
-cd ~/Documents/wiki
+# [ -x ~/.ssh-agent-thing ] && source ~/.ssh-agent-thing
+cd ~/vimwiki
 CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 
 echo 'Syncing...'
@@ -10,8 +10,11 @@ if [ ! -z "$(git status --porcelain)" ]; then
     # Uncommitted changes
     git add .
     git commit -m "$(date +"%d/%m/%Y %H:%M")"
-    git push origin "${CURRENT_BRANCH}"
+    # do not push because there is no remote for now
+    # git push origin "${CURRENT_BRANCH}"
 fi
+
+exit  # there is no remote for now; skipping the rest of the script
 
 # Pull changes
 git pull origin master

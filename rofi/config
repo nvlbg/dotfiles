@@ -11,41 +11,46 @@ rofi.ssh-command:                    alacritty -e ssh {host}
 rofi.levenschtein-sort:              1
 rofi.parse-known-hosts:              0
 rofi.matching:                       fuzzy
+rofi.kb-row-tab:                     Control+Shift+Tab
 rofi.kb-mode-next:                   Tab
 rofi.kb-mode-previous:               Shift+Tab
 rofi.kb-row-up:                      Control+p
 rofi.kb-row-down:                    Control+n
 
-! Base16 Gruvbox dark, medium
-! Author: Dawid Kurek (dawikur@gmail.com), morhetz (https://github.com/morhetz/gruvbox)
+! NOTE: the below line is a custom marker that is needed by base16-universal-manager
+! <<<<<<<<<<
+! Base16 Material
+! Author: Nate Peterson
 
-! base00: #282828
-! base01: #3c3836
-! base02: #504945
-! base03: #665c54
-! base04: #bdae93
-! base05: #d5c4a1
-! base06: #ebdbb2
-! base07: #fbf1c7
-! base08: #fb4934
-! base09: #fe8019
-! base0A: #fabd2f
-! base0B: #b8bb26
-! base0C: #8ec07c
-! base0D: #83a598
-! base0E: #d3869b
-! base0F: #d65d0e
+! base00: #263238
+! base01: #2E3C43
+! base02: #314549
+! base03: #546E7A
+! base04: #B2CCD6
+! base05: #EEFFFF
+! base06: #EEFFFF
+! base07: #FFFFFF
+! base08: #F07178
+! base09: #F78C6C
+! base0A: #FFCB6B
+! base0B: #C3E88D
+! base0C: #89DDFF
+! base0D: #82AAFF
+! base0E: #C792EA
+! base0F: #FF5370
 
 ! Enable the extended coloring options
 rofi.color-enabled: true
 
 ! Property Name     BG       Border   Separator
-rofi.color-window:  #3c3836, #282828, #282828
+rofi.color-window:  #2E3C43, #2E3C43, #263238
 
 ! Property Name     BG       FG       BG-alt   Head-BG  Head-FG
-rofi.color-normal:  #3c3836, #d5c4a1, #3c3836, #3c3836, #fbf1c7
-rofi.color-active:  #3c3836, #83a598, #3c3836, #3c3836, #83a598
-rofi.color-urgent:  #3c3836, #fb4934, #3c3836, #3c3836, #fb4934
+rofi.color-normal:  #2E3C43, #EEFFFF, #2E3C43, #2E3C43, #FFFFFF
+rofi.color-active:  #2E3C43, #82AAFF, #2E3C43, #2E3C43, #82AAFF
+rofi.color-urgent:  #2E3C43, #F07178, #2E3C43, #2E3C43, #F07178
 
 ! Set the desired separator style
 rofi.separator-style: solid
+! >>>>>>>>>>
+! NOTE: the above line is a custom marker that is needed by base16-universal-manager

@@ -36,12 +36,6 @@ dpi:
     # x: 209.0
     # y: 209.0
 
-# Display tabs using this many cells (changes require restart)
-tabspaces: 8
-
-# When true, bold text is drawn using the bright variant of colors.
-draw_bold_text_with_bright_colors: true
-
 # Font configuration (changes require restart)
 font:
   # The normal (roman) font face to use.
@@ -63,7 +57,7 @@ font:
     style: Italic
 
   # Point size of the font
-  size: 14.0
+  size: 9.0
 
   # Offset is the extra space around each character. offset.y can be thought of
   # as modifying the linespacing, and offset.x as modifying the letter spacing.
@@ -84,46 +78,53 @@ font:
   use_thin_strokes: true
 
 # Should display the render timer
-render_timer: false
+debug:
+  render_timer: false
 
 # Use custom cursor colors. If true, display the cursor in the cursor.foreground
 # and cursor.background colors, otherwise invert the colors of the cursor.
 # custom_cursor_colors: false
 
-# Base16 Gruvbox dark, medium 256 - alacritty color config
-# Dawid Kurek (dawikur@gmail.com), morhetz (https://github.com/morhetz/gruvbox)
+# NOTE: the following line is a custom marker that is needed by base16-universal-manager
+# <<<<<<<<<<
+# Base16 Material - alacritty color config
+# Nate Peterson
 colors:
   # Default colors
   primary:
-    background: '0x282828'
-    foreground: '0xd5c4a1'
+    background: '0x263238'
+    foreground: '0xEEFFFF'
 
   # Colors the cursor will use if `custom_cursor_colors` is true
   cursor:
-    text: '0x282828'
-    cursor: '0xd5c4a1'
+    text: '0x263238'
+    cursor: '0xEEFFFF'
 
   # Normal colors
   normal:
-    black:   '0x282828'
-    red:     '0xfb4934'
-    green:   '0xb8bb26'
-    yellow:  '0xfabd2f'
-    blue:    '0x83a598'
-    magenta: '0xd3869b'
-    cyan:    '0x8ec07c'
-    white:   '0xd5c4a1'
+    black:   '0x263238'
+    red:     '0xF07178'
+    green:   '0xC3E88D'
+    yellow:  '0xFFCB6B'
+    blue:    '0x82AAFF'
+    magenta: '0xC792EA'
+    cyan:    '0x89DDFF'
+    white:   '0xEEFFFF'
 
   # Bright colors
   bright:
-    black:   '0x665c54'
-    red:     '0xfb4934'
-    green:   '0xb8bb26'
-    yellow:  '0xfabd2f'
-    blue:    '0x83a598'
-    magenta: '0xd3869b'
-    cyan:    '0x8ec07c'
-    white: '0xd5c4a1'
+    black:   '0x546E7A'
+    red:     '0xF78C6C'
+    green:   '0x2E3C43'
+    yellow:  '0x314549'
+    blue:    '0xB2CCD6'
+    magenta: '0xEEFFFF'
+    cyan:    '0xFF5370'
+    white:   '0xFFFFFF'
+
+draw_bold_text_with_bright_colors: false
+# >>>>>>>>>>
+# NOTE: the above line is a custom marker that is needed by base16-universal-manager
 
 # Visual Bell
 #
@@ -147,7 +148,7 @@ colors:
 #
 # To completely disable the visual bell, set its duration to 0.
 #
-visual_bell:
+bell:
   animation: EaseOutExpo
   duration: 0
 

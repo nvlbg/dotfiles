@@ -1,0 +1,1 @@
+SUBSYSTEM=="input", ATTR{name}=="*[Kk]eyboard*", TAG+="systemd", ENV{SYSTEMD_WANTS}="keyboard-attached.service"
