@@ -1,0 +1,6 @@
+require('plugins')
+require('keymaps')
+require('options')
+require('autocmds')
+require('lang')
+require('debugging')

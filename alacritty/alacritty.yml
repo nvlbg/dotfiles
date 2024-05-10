@@ -28,6 +28,15 @@ window:
     x: 2
     y: 2
 
+  # Window decorations
+  #
+  # Available values:
+  # - full: borders and title bar
+  # - none: neither borders nor title bar
+  # - transparent: title bar, transparent background and title bar buttons
+  # - buttonless: title bar, transparent background, but no title bar buttons
+  decorations: full
+
 # The FreeType rasterizer needs to know the device DPI for best results
 # (changes require restart)
 dpi:
@@ -75,7 +84,7 @@ font:
   # OS X only: use thin stroke font rendering. Thin strokes are suitable
   # for retina displays, but for non-retina you probably want this set to
   # false.
-  use_thin_strokes: true
+  # use_thin_strokes: true
 
 # Should display the render timer
 debug:

@@ -42,7 +42,6 @@ export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export GOPATH=${HOME}/gocode
 export PATH="${PATH}:${HOME}/.cargo/bin:${GOPATH}/bin:${HOME}/.local/bin"
-export SSH_AUTH_SOCK="$HOME/.ssh/ssh_auth_sock"
 
 alias gd='git status --short | fzf --ansi --color --multi --preview="echo {} | sed -E -e \"s/[[:blank:]]+.[[:blank:]]+//\" | xargs git diff --color=always" | awk "{print $2}" | xargs git diff --'
 alias mvlastd="ls -t ~/Downloads/ | head -1 | xargs -I '%' mv ~/Downloads/'%'"
@@ -66,6 +65,8 @@ ls ~/.profile_* 1> /dev/null 2>&1 && for f in ~/.profile_*; do source $f; done
 alias nvim='nvim -c "let g:tty='\''$(tty)'\''"'
 
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
+    export SSH_AUTH_SOCK="$HOME/.ssh/ssh_auth_sock"
+
     # Linux
     export ANDROID_HOME=~/Android/Sdk
     export PATH="$PATH:/.yarn/bin:${HOME}/.config/yarn/global/node_modules/.bin"
