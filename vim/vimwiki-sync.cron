@@ -1,1 +1,0 @@
-*/30 * * * * ~/.config/nvim/vimwiki-sync.sh 2>> ~/.config/nvim/vimwiki-sync.log

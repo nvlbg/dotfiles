@@ -6,4 +6,11 @@ killall -q polybar
 # Wait until the processes have been shut down
 while pidof polybar >/dev/null; do sleep 1; done
 
-for i in $(polybar -m | awk -F: '{print $1}'); do MONITOR=$i polybar main & done
+for MONITOR in $(polybar -m | awk -F: '{print $1}'); do
+    if xrandr | grep "${MONITOR}" | grep primary >/dev/null; then
+        # deterministically display tray on the primary display
+        MONITOR=${MONITOR} MODULES_RIGHT='eth tray' polybar main &
+    else
+        MONITOR=${MONITOR} MODULES_RIGHT='eth' polybar main &
+    fi
+done

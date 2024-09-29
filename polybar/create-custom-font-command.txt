@@ -1,0 +1,2 @@
+# https://github.com/googlefonts/nanoemoji
+nanoemoji  --color_format=glyf_colr_0 --output_file="CustomEmojis.ttf" --family "Custom Emojis" svgs/*.svg

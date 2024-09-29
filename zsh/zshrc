@@ -3,6 +3,13 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # Customize to your needs...
 
 autoload -U up-line-or-beginning-search
@@ -30,14 +37,9 @@ show_virtual_env() {
   fi
 }
 
-mkcd () {
-    mkdir -p "${1}"
-    cd "${1}"
-}
-
+export PS1=$PS1'$(show_virtual_env)'
 export VISUAL=nvim
 export EDITOR=nvim
-export PS1=$PS1'$(show_virtual_env)'
 export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export GOPATH=${HOME}/gocode
@@ -57,39 +59,10 @@ export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.g
 
 [ -f ~/.fzf-colours.zsh ] && source ~/.fzf-colours.zsh
 
-# load profile scripts
-ls ~/.profile_* 1> /dev/null 2>&1 && for f in ~/.profile_*; do source $f; done
-
-# format xml similar to jq and yq
-# alias xq="python3 -c 'import sys;import xml.dom.minidom;s=sys.stdin.read();print(xml.dom.minidom.parseString(s).toprettyxml())'"
 alias nvim='nvim -c "let g:tty='\''$(tty)'\''"'
 
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
-    export SSH_AUTH_SOCK="$HOME/.ssh/ssh_auth_sock"
-
-    # Linux
-    export ANDROID_HOME=~/Android/Sdk
-    export PATH="$PATH:/.yarn/bin:${HOME}/.config/yarn/global/node_modules/.bin"
     alias open='xdg-open'
-    # alias pbcopy='wl-copy'
-
-    # start ssh-agent
-    # if ! pgrep -u "$USER" ssh-agent > /dev/null; then
-    #     ssh-agent > ~/.ssh-agent-thing
-    # fi
-    # if [[ ! "$SSH_AUTH_SOCK" ]]; then
-    #     eval "$(<~/.ssh-agent-thing)" &> /dev/null
-    # fi
-    export NVM_DIR="$HOME/.nvm"
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-elif [[ "$OSTYPE" == "darwin"* ]]; then
-    # MaxOS
-    ulimit -n 8192
-    alias fix-cerb='ps aux | rg ssh | rg adhoc | tr -s " " | cut -d " " -f 2 | xargs echo | xargs kill'
-    alias tag-gc='for i in $( git tag | grep phabricator ); do git tag -d $i; done'
-    # brew analytics off 2>&1 >/dev/null
-    cn () { CN_PATH="$(/Users/nikolay/.nvm/v0.10.32/lib/node_modules/@uber/change-node/change-node run $@)" && PATH="${CN_PATH:-$PATH}"; } # change-node t.uber.com/change-node
 fi
 
 # configuration for terminal buffers in neovim
@@ -101,7 +74,5 @@ if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
     fi
 fi
 
-# systemctl --user set-environment DISPLAY=:0
-# systemctl --user import-environment DISPLAY
-
-[ -s "~/.jabba/jabba.sh" ] && source "~/.jabba/jabba.sh"
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

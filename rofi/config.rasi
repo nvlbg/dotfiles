@@ -1,0 +1,14 @@
+configuration {
+    font:              "Hack Nerd Font Mono 16";
+    location:          0;
+    yoffset:           -150;
+    ssh-command:       "alacritty -e ssh {host}";
+	parse-known-hosts: false;
+    matching:          "fuzzy";
+    kb-mode-next:      "Tab";
+    kb-mode-previous:  "ISO_Left_Tab"; // For some reason ISO_Left_Tab works instead of Shift+Tab
+    kb-element-next:   "";
+	kb-element-prev:   "";
+}
+
+@theme "/usr/share/rofi/themes/Arc-Dark.rasi"

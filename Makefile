@@ -1,4 +1,4 @@
-LINUX := alacritty git i3 inputrc rofi ssh systemd tmux vim zsh
+LINUX := alacritty autorandr dunst git i3 inputrc rofi ssh systemd tmux vim zsh
 OSX := alacritty git inputrc karabiner ssh tmux vim zsh
 SUDO := caps2esc cron-linux keyboard
 
@@ -14,6 +14,11 @@ install-alacritty:
 	rm -rf ~/.config/alacritty
 	ln -fs $(PWD)/alacritty ~/.config/alacritty
 
+install-autorandr:
+	mkdir -p ~/.config
+	rm -rf ~/.config/autorandr
+	ln -fs $(PWD)/autorandr ~/.config/autorandr
+
 # do not forget to start system.d service as well
 install-caps2esc:
 	ln -fs $(shell pwd)/caps2esc/udevmon.yaml /etc/udevmon.yaml
@@ -24,6 +29,11 @@ install-cron-linux:
 	ln -fs $(shell pwd)/vim/vimwiki-sync.sh /etc/local.d/vimwiki-sync.start || true
 	ln -fs $(shell pwd)/vim/vimwiki-sync.sh /etc/local.d/vimwiki-sync.stop || true
 	crontab $(shell pwd)/vim/vimwiki-sync.cron || true
+
+install-dunst:
+	mkdir -p ~/.config
+	rm -rf ~/.config/dunst
+	ln -fs $(PWD)/dunst ~/.config/dunst
 
 install-git:
 	ln -fs $(PWD)/git/config ~/.gitconfig.custom
@@ -36,6 +46,9 @@ install-i3:
 	rm -rf ~/.config/polybar
 	ln -fs $(PWD)/i3 ~/.config/i3
 	ln -fs $(PWD)/polybar ~/.config/polybar
+	mkdir -p ~/.local/share/fonts
+	ln -fs $(PWD)/polybar/CustomEmojis.ttf ~/.local/share/fonts
+	fc-cache -fv
 
 install-inputrc:
 	ln -fs $(PWD)/inputrc/inputrc ~/.inputrc
@@ -66,7 +79,10 @@ install-systemd:
 	# systemctl enable keyboard-attached.service
 
 install-tmux:
-	ln -fs $(PWD)/tmux/tmux.conf ~/.tmux.conf
+	mkdir -p ~/.config
+	rm -rf ~/.config/tmux
+	ln -fs $(PWD)/tmux ~/.config/tmux
+	# ln -fs $(PWD)/tmux/tmux.conf ~/.tmux.conf
 
 install-vim:
 	mkdir -p ~/.config
