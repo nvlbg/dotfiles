@@ -72,3 +72,5 @@ vim.keymap.set('c', '<C-n>', '<Down>')
 
 -- show available completions
 vim.keymap.set('c', '<C-space>', '<C-d>')
+
+vim.keymap.set('n', 'L', ':lua vim.diagnostic.open_float()<CR>')

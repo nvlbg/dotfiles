@@ -44,6 +44,7 @@ export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export GOPATH=${HOME}/gocode
 export PATH="${PATH}:${HOME}/.cargo/bin:${GOPATH}/bin:${HOME}/.local/bin"
+export SSH_AUTH_SOCK=${XDG_RUNTIME_DIR}/ssh-agent.socket
 
 alias gd='git status --short | fzf --ansi --color --multi --preview="echo {} | sed -E -e \"s/[[:blank:]]+.[[:blank:]]+//\" | xargs git diff --color=always" | awk "{print $2}" | xargs git diff --'
 alias mvlastd="ls -t ~/Downloads/ | head -1 | xargs -I '%' mv ~/Downloads/'%'"

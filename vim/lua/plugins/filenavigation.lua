@@ -38,8 +38,10 @@ return {
                 vim.keymap.set('n', 'J',     api.node.navigate.sibling.last,  opts('Last Sibling'))
                 vim.keymap.set('n', 'K',     api.node.navigate.sibling.first, opts('First Sibling'))
                 vim.keymap.set('n', 'o',     api.node.run.system,             opts('Run System'))
-
             end,
+            git = {
+                ignore = false,
+            },
         },
         init = function()
             -- Toggle NvimTree mapping
@@ -73,6 +75,14 @@ return {
             -- Telescope LSP commands
             vim.keymap.set('n', 'gr', ':Telescope lsp_references<CR>')
             vim.keymap.set('n', 'gi', ':Telescope lsp_implementations<CR>')
+
+            -- Show line numbers in telescope preview window
+            vim.api.nvim_create_autocmd("User", {
+                pattern = "TelescopePreviewerLoaded",
+                callback = function()
+                    vim.wo.number = true
+                end,
+            })
         end,
     },
 }
