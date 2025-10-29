@@ -13,11 +13,60 @@ return {
             "williamboman/mason.nvim",
         },
         opts = {
-            ensure_installed = { "codelldb" },
+            ensure_installed = { "codelldb", "js" },
         },
+        handlers = {
+            function(config)
+                require('mason-nvim-dap').default_setup(config)
+            end,
+            javascript = function(config)
+                config.adapters["pwa-node"] = {
+                    type = "server",
+                    host = "localhost",
+                    port = "${port}",
+                    executable = {
+                        command = "node",
+                        args = {
+                            vim.fn.stdpath("data")
+                                .. "/mason/packages/js-debug-adapter/js-debug/src/dapDebugServer.js",
+                            "${port}",
+                        },
+                    },
+                }
+                config.configurations.javascript = {
+                    {
+                        type = "pwa-node",
+                        request = "launch",
+                        name = "Launch file (JavaScript)",
+                        program = "${file}",
+                        cwd = "${workspaceFolder}",
+                        console = "integratedTerminal",
+                        internalConsoleOptions = "neverOpen",
+                    },
+                }
+                require('mason-nvim-dap').default_setup(config)
+            end,
+        },
+        -- filetypes = {
+        --     ['js'] = { 'javascriptreact', 'typescriptreact', 'typescript', 'javascript' },
+        -- },
     },
     {
         "mfussenegger/nvim-dap",
+    },
+    {
+        "leoluz/nvim-dap-go",
+        config = true,
+        dependencies = {
+            "mfussenegger/nvim-dap",
+        },
+        -- keys = {
+        --     {
+        --         "<leader>dt",
+        --         function() require('dap-go').debug_test() end,
+        --         desc = "Debug test"
+        --     },
+        -- },
     },
     {
         "rcarriga/nvim-dap-ui",

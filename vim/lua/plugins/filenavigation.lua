@@ -3,6 +3,9 @@ return {
         "nvim-tree/nvim-tree.lua",
         dependencies = {
             "nvim-tree/nvim-web-devicons",
+            opts = {
+                color_icons = true;
+            }
         },
         opts = {
             on_attach = function(bufnr)
@@ -58,6 +61,11 @@ return {
                     "truncate"
                 },
                 dynamic_preview_title = true,
+                mappings = {
+                    i = {
+                        ['<C-u>'] = false,
+                    }
+                }
             },
             pickers = {
                 colorscheme = {

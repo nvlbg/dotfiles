@@ -55,12 +55,15 @@ return {
             automatic_installation = false,
 
             ensure_installed = {
-                "lua_ls",
-                "clangd",
-                "gopls",
-                "eslint",
-                "ts_ls",
+                "buf_ls",
                 "biome",
+                "clangd",
+                "eslint",
+                "gopls",
+                "lua_ls",
+                "terraformls",
+                "tflint",
+                "ts_ls",
                 -- "pyright",
             },
         },
@@ -68,8 +71,7 @@ return {
     {
         "neovim/nvim-lspconfig",
         config = function()
-            local lspconfig = require("lspconfig")
-            lspconfig.lua_ls.setup {
+            vim.lsp.config("lua_ls", {
                 on_init = function(client)
                     if client.workspace_folders then
                         local path = client.workspace_folders[1].name
@@ -101,12 +103,15 @@ return {
                 settings = {
                     Lua = {}
                 }
-            }
+            })
 
-            lspconfig.clangd.setup {}
-            lspconfig.gopls.setup {}
-            lspconfig.ts_ls.setup {}
-            lspconfig.biome.setup {
+            vim.lsp.config("buf_ls", {})
+            vim.lsp.config("clangd", {})
+            vim.lsp.config("gopls", {})
+            vim.lsp.config("ts_ls", {})
+            vim.lsp.config("terraformls", {})
+            vim.lsp.config("tflint", {})
+            vim.lsp.config("biome.setup", {
                 on_attach = function(_, bufnr)
                     vim.api.nvim_create_autocmd("BufWritePre", {
                         buffer = bufnr,
@@ -115,16 +120,16 @@ return {
                         end,
                     })
                 end,
-            }
+            })
 
-            lspconfig.eslint.setup {
+            vim.lsp.config("eslint", {
                 on_attach = function(_, bufnr)
                     vim.api.nvim_create_autocmd("BufWritePre", {
                         buffer = bufnr,
                         command = "EslintFixAll",
                     })
                 end,
-            }
+            })
         end,
     },
     {

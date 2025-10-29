@@ -60,3 +60,12 @@ vim.api.nvim_create_autocmd('TermOpen', {
     pattern = 'term://*',
     callback = function() vim.opt_local.cursorline = false end,
 })
+
+-- Add border to diagnostic popups
+vim.diagnostic.config({
+    float = {
+        border = 'single'
+    }
+})
+
+vim.o.winborder = 'single'

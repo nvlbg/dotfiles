@@ -6,12 +6,36 @@ return {
             "nvim-lua/plenary.nvim",
             "antoinemadec/FixCursorHold.nvim",
             "nvim-treesitter/nvim-treesitter",
+            { "fredrikaverpil/neotest-golang", version = "*" }, -- Installation
         },
         enabled = true,
         config = function()
             require("neotest").setup({
+                consumers = {
+                    notify = function(client)
+                        client.listeners.results = function(_, results)
+                            local total, passed, failed = 0, 0, 0
+                            for _, result in pairs(results) do
+                                if result.status == "passed" then
+                                    passed = passed + 1
+                                elseif result.status == "failed" then
+                                    failed = failed + 1
+                                end
+                                total = total + 1
+                            end
+                            if failed > 0 then
+                                vim.notify(("❌ Tests failed: %d/%d"):format(failed, total), vim.log.levels.ERROR)
+                            else
+                                vim.notify(("✅ All %d tests passed"):format(total), vim.log.levels.INFO)
+                            end
+                        end
+                    end,
+                },
                 adapters = {
                     require('rustaceanvim.neotest'),
+                    require("neotest-golang")({
+                        testify_enabled = true,
+                    }),
                 },
             })
 
