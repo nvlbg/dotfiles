@@ -43,17 +43,16 @@ return {
         end
     },
     {
-        "williamboman/mason.nvim",
+        "mason-org/mason.nvim",
         opts = {},
     },
     {
-        "williamboman/mason-lspconfig.nvim",
-        requires = {
-            "williamboman/mason.nvim",
+        "mason-org/mason-lspconfig.nvim",
+        dependencies = {
+            "mason-org/mason.nvim",
+            "neovim/nvim-lspconfig",
         },
         opts = {
-            automatic_installation = false,
-
             ensure_installed = {
                 "buf_ls",
                 "biome",
