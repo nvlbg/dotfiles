@@ -5,6 +5,7 @@ vim.keymap.set('n', '<Left>',    '<Cmd>lua require("dap").step_out()<CR>',      
 vim.keymap.set('n', '<Right>',   '<Cmd>lua require("dap").step_into()<CR>',         { silent = true })
 vim.keymap.set('n', '<leader>b', '<Cmd>lua require("dap").toggle_breakpoint()<CR>', { silent = true })
 vim.keymap.set('n', '<F9>',      '<Cmd>lua require("dapui").toggle()<CR>',          { silent = true })
+vim.keymap.set('n', '<leader>D', '<Cmd>lua require("dapui").toggle()<CR>',          { silent = true })
 
 return {
     {
@@ -60,13 +61,13 @@ return {
         dependencies = {
             "mfussenegger/nvim-dap",
         },
-        -- keys = {
-        --     {
-        --         "<leader>dt",
-        --         function() require('dap-go').debug_test() end,
-        --         desc = "Debug test"
-        --     },
-        -- },
+        keys = {
+          {
+            "<leader>dt",
+            function() require('dap-go').debug_test() end,
+            desc = "Debug test"
+          },
+        },
     },
     {
         "rcarriga/nvim-dap-ui",
@@ -89,8 +90,8 @@ return {
             require('telescope').load_extension('dap')
         end,
     },
-    {
-        "theHamsta/nvim-dap-virtual-text",
-        opts = {},
-    },
+    -- {
+    --     "theHamsta/nvim-dap-virtual-text",
+    --     opts = {},
+    -- },
 }

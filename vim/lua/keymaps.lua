@@ -74,3 +74,22 @@ vim.keymap.set('c', '<C-n>', '<Down>')
 vim.keymap.set('c', '<C-space>', '<C-d>')
 
 vim.keymap.set('n', 'L', ':lua vim.diagnostic.open_float()<CR>')
+
+-- smart hover
+vim.keymap.set({"n", "v"}, "K", function()
+  local ok_dap, dap = pcall(require, "dap")
+  if ok_dap and dap.session() then
+    require("dapui").eval()
+    return
+  end
+
+  -- fallback: LSP hover if available
+  local has_lsp = vim.lsp and vim.lsp.buf and vim.lsp.buf.hover
+  if has_lsp then
+    vim.lsp.buf.hover()
+    return
+  end
+
+  -- fallback: keywordprg (the built-in K)
+  vim.cmd("normal! K")
+end, { desc = "smart hover - DAP eval when debugging, LSP hover when available" })
