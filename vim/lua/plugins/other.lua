@@ -24,6 +24,45 @@ return {
         end
     },
     {
+        "SmiteshP/nvim-navic",
+        dependencies = {
+            "neovim/nvim-lspconfig",
+        },
+        opts = {
+              icons = {
+                  File = '',
+                  Module = '',
+                  Namespace = '',
+                  Package = '',
+                  Class = '',
+                  Method = '',
+                  Property = '',
+                  Field = '',
+                  Constructor = '',
+                  Enum = '',
+                  Interface = '',
+                  Function = '',
+                  Variable = '',
+                  Constant = '',
+                  String = '',
+                  Number = '',
+                  Boolean = '',
+                  Array = '',
+                  Object = '',
+                  Key = '',
+                  Null = '',
+                  EnumMember = '',
+                  Struct = '',
+                  Event = '',
+                  Operator = '',
+                  TypeParameter = ''
+              },
+            lsp = {
+                auto_attach = true,
+            },
+        },
+    },
+    {
         "nvim-lualine/lualine.nvim",
         dependencies = {
             "nvim-tree/nvim-web-devicons",
@@ -53,7 +92,7 @@ return {
                         end,
                     },
                     lualine_x = {
-                        "nvim_treesitter#statusline",
+                        "navic",
                     },
                     lualine_y = {"progress"},
                     lualine_z = {"location"},

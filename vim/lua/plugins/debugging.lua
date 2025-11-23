@@ -14,7 +14,7 @@ return {
             "williamboman/mason.nvim",
         },
         opts = {
-            ensure_installed = { "codelldb", "js" },
+            ensure_installed = { "codelldb", "js", "delve" },
         },
         handlers = {
             function(config)
@@ -90,8 +90,4 @@ return {
             require('telescope').load_extension('dap')
         end,
     },
-    -- {
-    --     "theHamsta/nvim-dap-virtual-text",
-    --     opts = {},
-    -- },
 }
