@@ -74,6 +74,8 @@ return {
             }
         },
         init = function()
+            local telescope = require("telescope.builtin")
+
             -- File searching mappings
             vim.keymap.set('', '<C-p>', ':Telescope find_files<CR>')
 
@@ -81,8 +83,23 @@ return {
             vim.keymap.set('n', '<leader>d', ':Telescope dap configurations<CR>', { silent = true })
 
             -- Telescope LSP commands
-            vim.keymap.set('n', 'gr', ':Telescope lsp_references<CR>')
-            vim.keymap.set('n', 'gi', ':Telescope lsp_implementations<CR>')
+            local test_file_patterns = { ".*_test%.go", ".*.spec.ts" }
+            vim.keymap.set('n', 'gr', function()
+                telescope.lsp_references({
+                    file_ignore_patterns = test_file_patterns,
+                })
+            end)
+            vim.keymap.set('n', 'gR', function()
+                telescope.lsp_references()
+            end)
+            vim.keymap.set('n', 'gi', function()
+                telescope.lsp_implementations({
+                    file_ignore_patterns = test_file_patterns,
+                })
+            end)
+            vim.keymap.set('n', 'gI', function()
+                telescope.lsp_implementations()
+            end)
 
             -- Show line numbers in telescope preview window
             vim.api.nvim_create_autocmd("User", {
