@@ -191,6 +191,14 @@ return {
                     vim.keymap.set("n", "p", "<Plug>(DBUI_GotoParentNode)", opts)
                 end,
             })
+            vim.api.nvim_create_autocmd("FileType", {
+                pattern = { "redis" },
+                callback = function()
+                    local opts = { buffer = true, noremap = true, silent = true }
+                    vim.keymap.set("n", "<leader>W", "<Plug>(DBUI_SaveQuery)", opts)
+                    vim.keymap.set("n", "<leader>E", "<Plug>(DBUI_EditBindParameters)", opts)
+                end,
+            })
         end,
         config = function()
             local ok, opdb = pcall(require, "dadbod_op")
