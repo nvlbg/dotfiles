@@ -58,27 +58,6 @@ return {
         opts = {},
     },
     {
-        "mason-org/mason-lspconfig.nvim",
-        dependencies = {
-            "mason-org/mason.nvim",
-            "neovim/nvim-lspconfig",
-        },
-        opts = {
-            ensure_installed = {
-                "buf_ls",
-                "biome",
-                "clangd",
-                "eslint",
-                "gopls",
-                "lua_ls",
-                "terraformls",
-                "tflint",
-                "ts_ls",
-                -- "pyright",
-            },
-        },
-    },
-    {
         "neovim/nvim-lspconfig",
         config = function()
             vim.lsp.config("lua_ls", {
@@ -141,6 +120,30 @@ return {
                 end,
             })
         end,
+    },
+    {
+        "mason-org/mason-lspconfig.nvim",
+        dependencies = {
+            "mason-org/mason.nvim",
+            "neovim/nvim-lspconfig",
+        },
+        opts = {
+            ensure_installed = {
+                "biome",
+                "buf_ls",
+                "clangd",
+                "eslint",
+                "gopls",
+                "lua_ls",
+                "stylua",
+                "terraformls",
+                "tflint",
+                "ts_ls",
+                "ts_query_ls",
+                -- "pyright",
+            },
+            automatic_enable = true,
+        },
     },
     {
         "mrcjkb/rustaceanvim",
