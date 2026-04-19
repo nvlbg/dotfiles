@@ -50,10 +50,25 @@ return {
                         runner = "gotestsum",
                     }),
                 },
+                summary = {
+                    mappings = {
+                        parent = "p",
+                    },
+                },
             })
 
-            vim.keymap.set('n', '<leader>t', '<Cmd>lua require("neotest").run.run()<CR>',                   { silent = true })
-            vim.keymap.set('n', '<leader>T', '<Cmd>lua require("neotest").run.run(vim.fn.expand("%"))<CR>', { silent = true })
+            vim.keymap.set('n', '<leader>t',  function()
+                require("neotest").run.run()
+            end, { silent = true, desc = "run nearest / last test" })
+            vim.keymap.set('n', '<leader>dt',  function()
+                require("neotest").run.run({ strategy = "dap" })
+            end, { silent = true, desc = "debug nearest / last test" })
+            vim.keymap.set('n', '<leader>T',  function()
+                require("neotest").run.run(vim.fn.expand("%"))
+            end, { silent = true, desc = "run entire test file" })
+            vim.keymap.set('n', '<leader>e',  function()
+                require("neotest").summary.toggle()
+            end, { silent = true, desc = "toggle neotest summary window" })
         end,
     },
 }
