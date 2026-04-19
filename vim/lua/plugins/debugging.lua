@@ -54,6 +54,11 @@ return {
     },
     {
         "mfussenegger/nvim-dap",
+        config = function()
+          local dap = require("dap")
+
+          dap.defaults.fallback.switchbuf = "usevisible,usetab,uselast"
+        end,
     },
     {
         "leoluz/nvim-dap-go",
@@ -61,19 +66,13 @@ return {
         dependencies = {
             "mfussenegger/nvim-dap",
         },
-        keys = {
-          {
-            "<leader>dt",
-            function() require('dap-go').debug_test() end,
-            desc = "Debug test"
-          },
-        },
     },
     {
         "rcarriga/nvim-dap-ui",
         dependencies = {
             "mfussenegger/nvim-dap",
             "nvim-neotest/nvim-nio",
+            "leoluz/nvim-dap-go",
         },
         opts = {},
         init = function()
