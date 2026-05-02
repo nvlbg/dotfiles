@@ -100,24 +100,38 @@ return {
             vim.lsp.config("ts_ls", {})
             vim.lsp.config("terraformls", {})
             vim.lsp.config("tflint", {})
-            vim.lsp.config("biome.setup", {
-                on_attach = function(_, bufnr)
-                    vim.api.nvim_create_autocmd("BufWritePre", {
-                        buffer = bufnr,
-                        callback = function()
-                            vim.lsp.buf.format()
-                        end,
-                    })
-                end,
-            })
+            vim.lsp.config("biome.setup", {})
+            vim.lsp.config("eslint", {})
 
-            vim.lsp.config("eslint", {
-                on_attach = function(_, bufnr)
-                    vim.api.nvim_create_autocmd("BufWritePre", {
-                        buffer = bufnr,
-                        command = "EslintFixAll",
-                    })
-                end,
+            -- Format on save
+            -- Original idea from https://www.mitchellhanberg.com/modern-format-on-save-in-neovim/
+            vim.api.nvim_create_autocmd("LspAttach", {
+              group = vim.api.nvim_create_augroup("lsp", { clear = true }),
+              callback = function(args)
+                local bufnr = args.buf
+
+                -- one group per buffer so we don't duplicate
+                local group = vim.api.nvim_create_augroup("lsp-format-" .. bufnr, { clear = true })
+
+                vim.api.nvim_create_autocmd("BufWritePre", {
+                  group = group,
+                  buffer = bufnr,
+                  callback = function()
+                    local clients = vim.lsp.get_clients({ bufnr = bufnr, method = "textDocument/formatting" })
+                    table.sort(clients, function(a, b)
+                      return a.name < b.name
+                    end)
+
+                    for _, client in ipairs(clients) do
+                      vim.lsp.buf.format({
+                        bufnr = bufnr,
+                        async = false,
+                        id = client.id,
+                      })
+                    end
+                  end,
+                })
+              end,
             })
         end,
     },
